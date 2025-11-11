@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5">
+    <div className="min-h-screen">
       <Header />
       <Navigation />
       
