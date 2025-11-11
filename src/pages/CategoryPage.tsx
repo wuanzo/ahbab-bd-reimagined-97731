@@ -64,6 +64,8 @@ const categoryData: Record<string, {
   }
 };
 
+import { CottonCandySpinner } from "@/components/CottonCandySpinner";
+
 export default function CategoryPage() {
   const { category } = useParams<{ category: string }>();
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>("All");
@@ -122,9 +124,12 @@ export default function CategoryPage() {
           {/* Products Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {loading ? (
-              Array.from({ length: 8 }).map((_, i) => (
-                <ProductCardSkeleton key={i} />
-              ))
+              <div className="col-span-full flex justify-center py-20">
+                <div className="text-center space-y-4">
+                  <CottonCandySpinner />
+                  <p className="text-primary font-display text-xl">Loading {categoryInfo.name}...</p>
+                </div>
+              </div>
             ) : (
               categoryInfo.products.map((product) => (
                 <ProductCard key={product.id} {...product} />

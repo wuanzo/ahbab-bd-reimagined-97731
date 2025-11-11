@@ -41,6 +41,8 @@ const paletteProducts = [
 
 import { useState, useEffect, useMemo } from "react";
 
+import { CottonCandySpinner } from "@/components/CottonCandySpinner";
+
 const Index = () => {
   const { searchQuery } = useShop();
   const [loading, setLoading] = useState(true);
@@ -82,14 +84,12 @@ const Index = () => {
         <main className="space-y-12">
           {loading ? (
             <>
-              <section className="py-8">
-                <div className="h-10 w-64 bg-muted rounded-lg animate-pulse mb-6" />
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                  {Array.from({ length: 10 }).map((_, i) => (
-                    <ProductCardSkeleton key={i} />
-                  ))}
+              <div className="flex justify-center items-center py-20">
+                <div className="text-center space-y-4">
+                  <CottonCandySpinner />
+                  <p className="text-primary font-display text-xl">Loading magical items...</p>
                 </div>
-              </section>
+              </div>
             </>
           ) : (
             <>
