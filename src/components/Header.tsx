@@ -13,7 +13,7 @@ export const Header = () => {
 
   return (
     <>
-    <header className="bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 border-b-2 border-border sticky top-0 z-50 shadow-md backdrop-blur-sm bg-card/80">
+    <header className="glass-nav border-b-2 border-border sticky top-0 z-50 shadow-lg">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
@@ -34,7 +34,7 @@ export const Header = () => {
               placeholder="Search for supplies..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-card border-2 border-border rounded-full focus:border-primary shadow-sm"
+              className="pl-10 glass-card border-2 border-border rounded-full focus:border-primary shadow-sm"
             />
           </div>
 

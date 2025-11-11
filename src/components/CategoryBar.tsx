@@ -16,7 +16,7 @@ const categories = [
 
 export const CategoryBar = () => {
   return (
-    <section className="py-6 bg-gradient-to-r from-primary/5 via-accent/5 to-secondary/5">
+    <section className="py-6 bg-transparent">
       <div className="overflow-x-auto">
         <div className="flex gap-3 min-w-max px-4">
           {categories.map((category) => {
@@ -25,7 +25,7 @@ export const CategoryBar = () => {
               <Link
                 key={category.name}
                 to={`/category/${category.slug}`}
-                className="flex flex-col items-center gap-2 px-6 py-4 rounded-2xl bg-card hover:bg-primary hover:text-primary-foreground transition-all group min-w-[120px] shadow-sm hover:shadow-md hover:scale-105 border-2 border-border hover:border-primary"
+                className="flex flex-col items-center gap-2 px-6 py-4 rounded-2xl glass-card hover:bg-primary hover:text-primary-foreground transition-all group min-w-[120px] shadow-sm hover:shadow-md hover:scale-105 border-2 border-border hover:border-primary"
               >
                 <Icon className="h-7 w-7 group-hover:scale-110 transition-transform" />
                 <span className="text-xs font-bold text-center whitespace-nowrap">

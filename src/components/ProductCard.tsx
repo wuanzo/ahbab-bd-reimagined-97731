@@ -36,7 +36,7 @@ export const ProductCard = ({ id = "1", name, image, price = "৳ 299", category
   };
 
   return (
-    <Card className="group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-primary/20 hover:border-primary rounded-3xl bg-card">
+    <Card className="group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-primary/20 hover:border-primary rounded-3xl glass-card">
       <CardContent className="p-0">
         <Link to={`/product/${id}`}>
           <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10">
@@ -47,7 +47,7 @@ export const ProductCard = ({ id = "1", name, image, price = "৳ 299", category
             />
             <button 
               onClick={handleToggleFavorite}
-              className="absolute top-3 right-3 p-2 bg-card rounded-full shadow-lg hover:scale-110 transition-transform opacity-0 group-hover:opacity-100"
+              className="absolute top-3 right-3 p-2 glass-card rounded-full shadow-lg hover:scale-110 transition-transform opacity-0 group-hover:opacity-100"
             >
               <Heart className={`h-5 w-5 ${isFavorite(id) ? "fill-primary text-primary" : "text-primary"}`} />
             </button>
