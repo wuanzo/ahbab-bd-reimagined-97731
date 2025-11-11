@@ -106,10 +106,10 @@ All colors MUST be HSL.
   body {
     @apply text-foreground;
     background: 
-      linear-gradient(135deg, rgba(255, 229, 240, 0.95) 0%, rgba(229, 212, 255, 0.95) 25%, rgba(212, 235, 255, 0.95) 50%, rgba(255, 229, 240, 0.95) 75%, rgba(255, 238, 245, 0.95) 100%),
-      url('/src/assets/cotton-candy-pattern.jpg');
+      linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%),
+      url('/cotton-candy-pattern.webp');
     background-attachment: fixed;
-    background-size: auto, 400px 400px;
+    background-size: auto, 500px 500px;
     background-position: center, center;
     position: relative;
   }
