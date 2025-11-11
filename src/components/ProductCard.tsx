@@ -36,7 +36,7 @@ export const ProductCard = ({ id = "1", name, image, price = "৳ 299", category
   };
 
   return (
-    <Card className="group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-primary/20 hover:border-primary rounded-3xl glass-card animate-float hover:animate-float-slow relative">
+    <Card className="group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-primary/20 hover:border-primary rounded-3xl glass-card hover:animate-float relative">
       {/* Cotton candy bubble effects */}
       <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-primary/20 animate-bubble pointer-events-none"></div>
       <div className="absolute -bottom-4 -left-4 w-6 h-6 rounded-full bg-secondary/20 animate-bubble pointer-events-none" style={{ animationDelay: '1s' }}></div>
