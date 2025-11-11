@@ -105,8 +105,12 @@ All colors MUST be HSL.
 
   body {
     @apply text-foreground;
-    background: linear-gradient(135deg, #FFE5F0 0%, #E5D4FF 25%, #D4EBFF 50%, #FFE5F0 75%, #FFEEF5 100%);
+    background: 
+      linear-gradient(135deg, rgba(255, 229, 240, 0.95) 0%, rgba(229, 212, 255, 0.95) 25%, rgba(212, 235, 255, 0.95) 50%, rgba(255, 229, 240, 0.95) 75%, rgba(255, 238, 245, 0.95) 100%),
+      url('/src/assets/cotton-candy-pattern.jpg');
     background-attachment: fixed;
+    background-size: auto, 400px 400px;
+    background-position: center, center;
     position: relative;
   }
   
@@ -118,9 +122,9 @@ All colors MUST be HSL.
     right: 0;
     bottom: 0;
     background-image: 
-      radial-gradient(circle at 20% 50%, rgba(255, 182, 217, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(201, 163, 255, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 40% 20%, rgba(163, 213, 255, 0.15) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, rgba(255, 182, 217, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(201, 163, 255, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, rgba(163, 213, 255, 0.08) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
   }
