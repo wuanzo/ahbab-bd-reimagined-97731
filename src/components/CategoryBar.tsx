@@ -25,10 +25,10 @@ export const CategoryBar = () => {
               <Link
                 key={category.name}
                 to={`/category/${category.slug}`}
-                className="flex flex-col items-center justify-center gap-2 px-4 py-6 rounded-2xl glass-card hover:bg-gradient-to-br hover:from-primary/30 hover:to-accent/30 transition-all group shadow-sm hover:shadow-xl hover:scale-105 border-2 border-primary/20 hover:border-primary/50 h-full backdrop-blur-sm"
+                className="flex flex-col items-center justify-center gap-2 px-4 py-6 rounded-2xl glass-card hover:bg-primary hover:text-primary-foreground transition-all group shadow-sm hover:shadow-md hover:scale-105 border-2 border-border hover:border-primary h-full"
               >
-                <Icon className="h-7 w-7 group-hover:scale-110 transition-transform text-primary" />
-                <span className="text-xs font-bold text-center whitespace-nowrap group-hover:text-primary">
+                <Icon className="h-7 w-7 group-hover:scale-110 transition-transform" />
+                <span className="text-xs font-bold text-center whitespace-nowrap">
                   {category.name}
                 </span>
               </Link>
