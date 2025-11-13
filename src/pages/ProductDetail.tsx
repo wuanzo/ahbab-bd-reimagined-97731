@@ -138,50 +138,50 @@ const ProductDetail = () => {
       <Header />
       <Navigation />
       
-      <div className="container mx-auto px-4 py-8">
-        <Link to="/" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-6 font-medium">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-8">
+        <Link to="/" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-4 md:mb-6 font-medium text-sm md:text-base">
           <ArrowLeft className="w-4 h-4" />
           Back to Shop
         </Link>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-12">
           {/* Product Image */}
           <div className="relative">
-            <div className="rounded-3xl overflow-hidden shadow-lg border-4 border-white bg-white">
+            <div className="rounded-2xl md:rounded-3xl overflow-hidden shadow-lg border-2 md:border-4 border-white bg-white">
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-[500px] object-cover"
+                className="w-full h-[300px] md:h-[500px] object-cover"
               />
             </div>
-            <Badge className="absolute top-4 right-4 bg-accent text-accent-foreground px-4 py-2 text-sm">
+            <Badge className="absolute top-2 md:top-4 right-2 md:right-4 bg-accent text-accent-foreground px-3 md:px-4 py-1 md:py-2 text-xs md:text-sm">
               NEW ✨
             </Badge>
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <div>
-              <h1 className="text-4xl font-display text-primary mb-2">{product.name}</h1>
-              <div className="flex items-center gap-3 mb-4">
+              <h1 className="text-2xl md:text-4xl font-display text-primary mb-2">{product.name}</h1>
+              <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
                 <div className="flex items-center gap-1">
-                  {renderStars(Math.round(product.rating), "w-5 h-5")}
+                  {renderStars(Math.round(product.rating), "w-4 h-4 md:w-5 md:h-5")}
                 </div>
-                <span className="text-lg font-medium text-foreground/80">
+                <span className="text-sm md:text-lg font-medium text-foreground/80">
                   {product.rating} ({product.totalReviews} reviews)
                 </span>
               </div>
-              <p className="text-4xl font-bold text-primary mb-4">{product.price}</p>
+              <p className="text-3xl md:text-4xl font-bold text-primary mb-3 md:mb-4">{product.price}</p>
             </div>
 
-            <Card className="border-4 border-primary/20 bg-gradient-to-br from-pink-50/50 to-purple-50/50">
-              <CardContent className="p-6">
-                <h3 className="font-display text-xl text-primary mb-3">Product Details 💝</h3>
-                <p className="text-foreground/80 mb-4 leading-relaxed">{product.description}</p>
+            <Card className="border-2 md:border-4 border-primary/20 bg-gradient-to-br from-pink-50/50 to-purple-50/50">
+              <CardContent className="p-4 md:p-6">
+                <h3 className="font-display text-lg md:text-xl text-primary mb-3">Product Details 💝</h3>
+                <p className="text-sm md:text-base text-foreground/80 mb-4 leading-relaxed">{product.description}</p>
                 <ul className="space-y-2">
                   {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-2 text-foreground/80">
-                      <span className="text-primary mt-1">•</span>
+                    <li key={index} className="flex items-start gap-2 text-sm md:text-base text-foreground/80">
+                      <span className="text-primary mt-0.5 md:mt-1">•</span>
                       <span>{feature}</span>
                     </li>
                   ))}

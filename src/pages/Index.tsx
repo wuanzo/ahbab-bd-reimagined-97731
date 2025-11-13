@@ -80,8 +80,8 @@ const Index = () => {
       <HeroSection />
       <CategoryBar />
       
-      <div className="container mx-auto px-4 py-8">
-        <main className="space-y-12">
+      <div className="container mx-auto px-3 md:px-4 py-6 md:py-8">
+        <main className="space-y-8 md:space-y-12">
           {loading ? (
             <>
               <div className="flex justify-center items-center py-20">

@@ -10,17 +10,17 @@ export default function About() {
       <Header />
       <Navigation />
       
-      <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl md:text-5xl font-display text-primary text-center mb-6">
+      <div className="container mx-auto px-4 py-6 md:py-12">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-display text-primary text-center mb-4 md:mb-6">
           About Stationery Parlour
         </h1>
-        <p className="text-center text-lg text-muted-foreground max-w-3xl mx-auto mb-12">
+        <p className="text-center text-base md:text-lg text-muted-foreground max-w-3xl mx-auto mb-8 md:mb-12 px-4">
           Your trusted partner in creativity and artistic expression since 2024
         </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-16">
           <Card className="border-2 border-border hover:border-primary transition-colors">
-            <CardContent className="p-6 text-center">
+            <CardContent className="p-4 md:p-6 text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="h-8 w-8 text-primary" />
               </div>

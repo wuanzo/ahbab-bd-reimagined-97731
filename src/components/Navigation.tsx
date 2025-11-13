@@ -10,16 +10,16 @@ const navItems = [
 export const Navigation = () => {
   return (
     <nav className="glass-nav shadow-lg">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-center gap-2 py-3">
+      <div className="container mx-auto px-2 md:px-4">
+        <div className="flex items-center justify-center gap-1 md:gap-2 py-2 md:py-3 overflow-x-auto">
           {navItems.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="flex items-center gap-2 px-6 py-2 font-semibold rounded-full text-foreground hover:glass-card hover:text-primary transition-all hover:scale-105 shadow-md"
+              className="flex items-center gap-1 md:gap-2 px-3 md:px-6 py-2 font-semibold rounded-full text-xs md:text-base text-foreground hover:glass-card hover:text-primary transition-all hover:scale-105 shadow-md whitespace-nowrap flex-shrink-0"
             >
-              <item.icon className="h-4 w-4" />
-              {item.name}
+              <item.icon className="h-3 w-3 md:h-4 md:w-4" />
+              <span className="hidden sm:inline">{item.name}</span>
             </a>
           ))}
         </div>

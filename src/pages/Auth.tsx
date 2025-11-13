@@ -31,49 +31,49 @@ export default function Auth() {
       <Header />
       <Navigation />
       
-      <main className="flex-1 container mx-auto px-4 py-16 flex items-center justify-center">
-        <Card className="w-full max-w-md glass-card border-2">
-          <CardHeader className="space-y-1">
-            <div className="flex items-center justify-center mb-4">
-              <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+      <main className="flex-1 container mx-auto px-3 md:px-4 py-6 md:py-16 flex items-center justify-center">
+        <Card className="w-full max-w-md glass-card border border-primary/20 md:border-2">
+          <CardHeader className="space-y-1 px-4 md:px-6 pt-4 md:pt-6">
+            <div className="flex items-center justify-center mb-3 md:mb-4">
+              <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-primary animate-pulse" />
             </div>
-            <CardTitle className="text-2xl text-center font-display">Welcome to Stationery Parlour</CardTitle>
-            <CardDescription className="text-center">
+            <CardTitle className="text-xl md:text-2xl text-center font-display">Welcome to Stationery Parlour</CardTitle>
+            <CardDescription className="text-center text-sm md:text-base">
               Sign in to your account or create a new one
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 md:px-6 pb-4 md:pb-6">
             <Tabs defaultValue="login" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="login">Login</TabsTrigger>
-                <TabsTrigger value="register">Register</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-2 h-9 md:h-10">
+                <TabsTrigger value="login" className="text-sm md:text-base">Login</TabsTrigger>
+                <TabsTrigger value="register" className="text-sm md:text-base">Register</TabsTrigger>
               </TabsList>
               
               <TabsContent value="login">
-                <form onSubmit={handleLogin} className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-3 md:space-y-4 mt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="login-email">Email</Label>
+                    <Label htmlFor="login-email" className="text-sm md:text-base">Email</Label>
                     <Input
                       id="login-email"
                       type="email"
                       placeholder="hello@example.com"
                       required
-                      className="border-2"
+                      className="border-2 h-10 md:h-11 text-sm md:text-base"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="login-password">Password</Label>
+                    <Label htmlFor="login-password" className="text-sm md:text-base">Password</Label>
                     <Input
                       id="login-password"
                       type="password"
                       placeholder="••••••••"
                       required
-                      className="border-2"
+                      className="border-2 h-10 md:h-11 text-sm md:text-base"
                     />
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-primary hover:bg-primary/90"
+                    className="w-full bg-primary hover:bg-primary/90 h-10 md:h-11 text-sm md:text-base"
                     disabled={isLoading}
                   >
                     {isLoading ? "Signing in..." : "Sign In"}
@@ -82,50 +82,50 @@ export default function Auth() {
               </TabsContent>
               
               <TabsContent value="register">
-                <form onSubmit={handleRegister} className="space-y-4">
+                <form onSubmit={handleRegister} className="space-y-3 md:space-y-4 mt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="register-name">Full Name</Label>
+                    <Label htmlFor="register-name" className="text-sm md:text-base">Full Name</Label>
                     <Input
                       id="register-name"
                       type="text"
                       placeholder="John Doe"
                       required
-                      className="border-2"
+                      className="border-2 h-10 md:h-11 text-sm md:text-base"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="register-email">Email</Label>
+                    <Label htmlFor="register-email" className="text-sm md:text-base">Email</Label>
                     <Input
                       id="register-email"
                       type="email"
                       placeholder="hello@example.com"
                       required
-                      className="border-2"
+                      className="border-2 h-10 md:h-11 text-sm md:text-base"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="register-password">Password</Label>
+                    <Label htmlFor="register-password" className="text-sm md:text-base">Password</Label>
                     <Input
                       id="register-password"
                       type="password"
                       placeholder="••••••••"
                       required
-                      className="border-2"
+                      className="border-2 h-10 md:h-11 text-sm md:text-base"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="register-confirm">Confirm Password</Label>
+                    <Label htmlFor="register-confirm" className="text-sm md:text-base">Confirm Password</Label>
                     <Input
                       id="register-confirm"
                       type="password"
                       placeholder="••••••••"
                       required
-                      className="border-2"
+                      className="border-2 h-10 md:h-11 text-sm md:text-base"
                     />
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-primary hover:bg-primary/90"
+                    className="w-full bg-primary hover:bg-primary/90 h-10 md:h-11 text-sm md:text-base"
                     disabled={isLoading}
                   >
                     {isLoading ? "Creating account..." : "Create Account"}
