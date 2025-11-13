@@ -56,8 +56,8 @@ export const ProductCard = ({ id = "1", name, image, price = "৳ 299", category
             >
               <Heart className={`h-5 w-5 ${isFavorite(id) ? "fill-primary text-primary" : "text-primary"}`} />
             </button>
-            <div className="absolute top-3 left-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-              NEW ✨
+            <div className="absolute top-3 left-3 bg-gradient-to-r from-primary/90 to-accent/90 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg border border-white/30">
+              NEW
             </div>
           </div>
         </Link>
