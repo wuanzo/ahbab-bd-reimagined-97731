@@ -1,8 +1,22 @@
 import heroImage from "@/assets/hero-art-supplies.jpg";
 import { Sparkles, Palette, PenTool } from "lucide-react";
 import { Button } from "./ui/button";
+import { useState, useEffect } from "react";
 
 export const HeroSection = () => {
+  const fullText = "Premium Stationery\nfor Creative Minds";
+  const [displayedText, setDisplayedText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (currentIndex < fullText.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(prev => prev + fullText[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, 50);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, fullText]);
   return (
     <section className="relative h-[400px] md:h-[500px] overflow-hidden rounded-3xl shadow-xl border-2 border-border">
       <img
@@ -18,8 +32,9 @@ export const HeroSection = () => {
               <PenTool className="h-6 w-6 md:h-8 md:w-8 text-white animate-pulse" style={{ animationDelay: '0.2s' }} />
               <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-white animate-pulse" style={{ animationDelay: '0.4s' }} />
             </div>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display text-white leading-tight drop-shadow-lg">
-              Premium Stationery<br />for Creative Minds
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display text-white leading-tight drop-shadow-lg min-h-[200px] whitespace-pre-wrap">
+              {displayedText}
+              <span className="animate-pulse">|</span>
             </h2>
             <p className="text-lg md:text-2xl text-white font-medium drop-shadow-md">
               Discover quality supplies that inspire<br />

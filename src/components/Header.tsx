@@ -5,6 +5,7 @@ import { CartSheet } from "./CartSheet";
 import { FavoritesSheet } from "./FavoritesSheet";
 import { Logo } from "./Logo";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const { cart, favorites, searchQuery, setSearchQuery } = useShop();
@@ -42,23 +43,23 @@ export const Header = () => {
           <div className="flex items-center gap-2">
             <button 
               onClick={() => setFavoritesOpen(true)}
-              className="p-2 md:p-3 hover:bg-primary/10 rounded-full transition-all hover:scale-110 relative"
+              className="p-2 md:p-3 hover:bg-primary/10 rounded-full transition-all hover:scale-110 relative group"
             >
-              <Heart className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+              <Heart className="h-5 w-5 md:h-6 md:w-6 text-primary group-hover:fill-primary group-hover:animate-pulse transition-all" />
               {favorites.length > 0 && (
                 <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-md">
                   {favorites.length}
                 </span>
               )}
             </button>
-            <button className="p-2 md:p-3 hover:bg-secondary/20 rounded-full transition-all hover:scale-110">
-              <User className="h-5 w-5 md:h-6 md:w-6 text-secondary-foreground" />
-            </button>
+            <Link to="/auth" className="p-2 md:p-3 hover:bg-secondary/20 rounded-full transition-all hover:scale-110 group">
+              <User className="h-5 w-5 md:h-6 md:w-6 text-secondary-foreground group-hover:animate-pulse" />
+            </Link>
             <button 
               onClick={() => setCartOpen(true)}
-              className="p-2 md:p-3 hover:bg-accent/20 rounded-full transition-all hover:scale-110 relative"
+              className="p-2 md:p-3 hover:bg-accent/20 rounded-full transition-all hover:scale-110 relative group"
             >
-              <ShoppingCart className="h-5 w-5 md:h-6 md:w-6 text-accent-foreground" />
+              <ShoppingCart className="h-5 w-5 md:h-6 md:w-6 text-accent-foreground group-hover:animate-bounce" />
               {cart.length > 0 && (
                 <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-md">
                   {cart.length}

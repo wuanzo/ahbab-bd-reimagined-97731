@@ -17,15 +17,15 @@ const categories = [
 export const CategoryBar = () => {
   return (
     <section className="py-6 bg-transparent">
-      <div className="overflow-x-auto">
-        <div className="flex gap-3 min-w-max px-4">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
           {categories.map((category) => {
             const Icon = category.icon;
             return (
               <Link
                 key={category.name}
                 to={`/category/${category.slug}`}
-                className="flex flex-col items-center gap-2 px-6 py-4 rounded-2xl glass-card hover:bg-primary hover:text-primary-foreground transition-all group min-w-[120px] shadow-sm hover:shadow-md hover:scale-105 border-2 border-border hover:border-primary"
+                className="flex flex-col items-center justify-center gap-2 px-4 py-6 rounded-2xl glass-card hover:bg-primary hover:text-primary-foreground transition-all group shadow-sm hover:shadow-md hover:scale-105 border-2 border-border hover:border-primary h-full"
               >
                 <Icon className="h-7 w-7 group-hover:scale-110 transition-transform" />
                 <span className="text-xs font-bold text-center whitespace-nowrap">

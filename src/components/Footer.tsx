@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 
 export const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5 border-t-2 border-border">
+    <footer className="bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 border-t-2 border-border">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
