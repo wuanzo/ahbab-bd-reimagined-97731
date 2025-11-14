@@ -5,20 +5,20 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function Privacy() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5">
+    <div className="min-h-screen">
       <Header />
       <Navigation />
       
-      <div className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl md:text-5xl font-display text-primary text-center mb-6">
+      <div className="container mx-auto px-3 sm:px-4 py-8 md:py-12">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-primary text-center mb-4 md:mb-6">
           Privacy Policy
         </h1>
-        <p className="text-center text-muted-foreground mb-12">
+        <p className="text-center text-sm sm:text-base text-muted-foreground mb-8 md:mb-12">
           Last updated: {new Date().toLocaleDateString()}
         </p>
 
-        <Card className="max-w-4xl mx-auto border-2 border-border">
-          <CardContent className="p-8 space-y-6">
+        <Card className="max-w-4xl mx-auto border-2 border-border glass-card">
+          <CardContent className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
             <section>
               <h2 className="text-2xl font-display text-primary mb-3">1. Information We Collect</h2>
               <p className="text-muted-foreground leading-relaxed mb-3">

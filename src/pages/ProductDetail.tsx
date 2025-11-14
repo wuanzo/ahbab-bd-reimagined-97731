@@ -174,7 +174,7 @@ const ProductDetail = () => {
               <p className="text-3xl md:text-4xl font-bold text-primary mb-3 md:mb-4">{product.price}</p>
             </div>
 
-            <Card className="border-2 md:border-4 border-primary/20 bg-gradient-to-br from-pink-50/50 to-purple-50/50">
+            <Card className="border-2 md:border-4 border-primary/20 glass-card">
               <CardContent className="p-4 md:p-6">
                 <h3 className="font-display text-lg md:text-xl text-primary mb-3">Product Details 💝</h3>
                 <p className="text-sm md:text-base text-foreground/80 mb-4 leading-relaxed">{product.description}</p>
@@ -233,8 +233,8 @@ const ProductDetail = () => {
           <h2 className="text-2xl sm:text-3xl font-display text-primary">Customer Reviews 💬</h2>
           
           {/* Leave a Comment */}
-          <Card className="border-4 border-primary/20 bg-gradient-to-br from-pink-50/50 to-purple-50/50">
-            <CardContent className="p-6 space-y-4">
+          <Card className="border-2 sm:border-4 border-primary/20 glass-card">
+            <CardContent className="p-4 sm:p-6 space-y-4">
               <h3 className="font-display text-xl text-primary">Leave a Review ✍️</h3>
               
               <div className="space-y-4">
@@ -288,8 +288,8 @@ const ProductDetail = () => {
           {/* Comments List */}
           <div className="space-y-4">
             {comments.map((comment) => (
-              <Card key={comment.id} className="border-4 border-primary/10 hover:border-primary/20 transition-colors">
-                <CardContent className="p-6">
+              <Card key={comment.id} className="border-2 sm:border-4 border-primary/10 hover:border-primary/20 transition-colors glass-card">
+                <CardContent className="p-4 sm:p-6">
                   <div className="flex justify-between items-start mb-3">
                     <div>
                       <p className="font-medium text-lg text-foreground">{comment.author}</p>

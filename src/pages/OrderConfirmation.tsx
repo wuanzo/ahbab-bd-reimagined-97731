@@ -14,14 +14,14 @@ export default function OrderConfirmation() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5">
+    <div className="min-h-screen">
       <Header />
       <Navigation />
       
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-3 sm:px-4 py-8 md:py-12">
         <div className="max-w-2xl mx-auto">
-          <Card className="border-2 border-success text-center">
-            <CardContent className="p-12">
+          <Card className="border-2 border-success text-center glass-card">
+            <CardContent className="p-6 sm:p-8 md:p-12">
               <div className="w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <CheckCircle className="h-12 w-12 text-success-foreground" />
               </div>
