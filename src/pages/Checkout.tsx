@@ -94,7 +94,7 @@ export default function Checkout() {
         <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
           {/* Checkout Form */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="border-4 border-primary/20">
+            <Card className="border-2 border-primary/20 glass-card">
               <CardHeader>
                 <CardTitle className="text-2xl font-display text-primary">Shipping Information 📦</CardTitle>
               </CardHeader>
@@ -181,7 +181,7 @@ export default function Checkout() {
               </CardContent>
             </Card>
 
-            <Card className="border-4 border-primary/20">
+            <Card className="border-2 sm:border-4 border-primary/20 glass-card">
               <CardHeader>
                 <CardTitle className="text-2xl font-display text-primary flex items-center gap-2">
                   <CreditCard className="h-6 w-6" />
@@ -231,7 +231,7 @@ export default function Checkout() {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <Card className="border-4 border-primary/20 sticky top-4">
+            <Card className="border-2 sm:border-4 border-primary/20 sticky top-4 glass-card">
               <CardHeader>
                 <CardTitle className="text-2xl font-display text-primary">Order Summary 📝</CardTitle>
               </CardHeader>

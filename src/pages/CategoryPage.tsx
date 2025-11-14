@@ -84,9 +84,9 @@ export default function CategoryPage() {
       <Header />
       <Navigation />
       
-      <div className={`${categoryInfo.background} py-6 md:py-8`}>
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-6 md:mb-8">
+      <div className="py-6 md:py-8">
+        <div className="container mx-auto px-3 sm:px-4">
+          <div className="text-center mb-6 md:mb-8 glass-card rounded-3xl p-6 md:p-8 border-2 border-primary/20">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-primary mb-2 flex items-center justify-center gap-2 sm:gap-3">
               <categoryInfo.icon className="h-10 w-10 md:h-12 md:w-12" />
               {categoryInfo.name}
@@ -98,10 +98,10 @@ export default function CategoryPage() {
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 md:mb-8">
             <button
               onClick={() => setSelectedSubcategory("All")}
-              className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full text-xs sm:text-sm md:text-base font-bold transition-all ${
+              className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full text-xs sm:text-sm md:text-base font-bold transition-all glass-card ${
                 selectedSubcategory === "All"
                   ? "bg-primary text-primary-foreground shadow-lg scale-105"
-                  : "bg-card hover:bg-primary/10 border-2 border-border"
+                  : "hover:bg-primary/10 border-2 border-border"
               }`}
             >
               All
@@ -110,10 +110,10 @@ export default function CategoryPage() {
               <button
                 key={sub}
                 onClick={() => setSelectedSubcategory(sub)}
-                className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full text-xs sm:text-sm md:text-base font-bold transition-all ${
+                className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full text-xs sm:text-sm md:text-base font-bold transition-all glass-card ${
                   selectedSubcategory === sub
                     ? "bg-primary text-primary-foreground shadow-lg scale-105"
-                    : "bg-card hover:bg-primary/10 border-2 border-border"
+                    : "hover:bg-primary/10 border-2 border-border"
                 }`}
               >
                 {sub}
