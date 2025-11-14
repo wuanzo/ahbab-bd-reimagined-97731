@@ -1,9 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Heart } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ShoppingCart, Heart, Flame } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useShop } from "@/contexts/ShopContext";
 import { useToast } from "@/hooks/use-toast";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 interface ProductCardProps {
   id?: string;
@@ -11,11 +13,13 @@ interface ProductCardProps {
   image: string;
   price?: string;
   category?: string;
+  badge?: "new" | "hot";
 }
 
-export const ProductCard = ({ id = "1", name, image, price = "৳ 299", category = "" }: ProductCardProps) => {
+export const ProductCard = ({ id = "1", name, image, price = "৳ 299", category = "", badge = "new" }: ProductCardProps) => {
   const { addToCart, toggleFavorite, isFavorite } = useShop();
   const { toast } = useToast();
+  const { ref, isVisible } = useScrollAnimation();
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -36,7 +40,12 @@ export const ProductCard = ({ id = "1", name, image, price = "৳ 299", category
   };
 
   return (
-    <Card className="group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-primary/20 hover:border-primary rounded-3xl glass-card hover:animate-float relative">
+    <Card 
+      ref={ref}
+      className={`group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-500 border-2 border-primary/20 hover:border-primary rounded-3xl glass-card hover:animate-float relative ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
       {/* Cotton candy bubble effects */}
       <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-primary/20 animate-bubble pointer-events-none"></div>
       <div className="absolute -bottom-4 -left-4 w-6 h-6 rounded-full bg-secondary/20 animate-bubble pointer-events-none" style={{ animationDelay: '1s' }}></div>
@@ -56,9 +65,17 @@ export const ProductCard = ({ id = "1", name, image, price = "৳ 299", category
             >
               <Heart className={`h-5 w-5 ${isFavorite(id) ? "fill-primary text-primary" : "text-primary"}`} />
             </button>
-            <div className="absolute top-3 left-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-              NEW ✨
-            </div>
+            {badge === "new" && (
+              <Badge className="absolute top-3 left-3 px-3 py-1 text-xs font-bold shadow-lg animate-pulse bg-gradient-to-r from-accent via-primary to-accent bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite]">
+                NEW ✨
+              </Badge>
+            )}
+            {badge === "hot" && (
+              <Badge className="absolute top-3 left-3 px-3 py-1 text-xs font-bold shadow-lg bg-gradient-to-r from-orange-400 via-red-400 to-pink-400 bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite]">
+                <Flame className="h-3 w-3 inline mr-1 animate-pulse" />
+                HOT
+              </Badge>
+            )}
           </div>
         </Link>
         <div className="p-4 space-y-3">
