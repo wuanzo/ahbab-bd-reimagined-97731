@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Star, Heart, ShoppingCart, ArrowLeft, Sparkles } from "lucide-react";
+import { Star, Heart, ShoppingCart, ArrowLeft, Sparkles, User } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
@@ -8,8 +8,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductDetailSkeleton } from "@/components/ProductDetailSkeleton";
+import { BackToTop } from "@/components/BackToTop";
 import { useShop } from "@/contexts/ShopContext";
 import { useToast } from "@/hooks/use-toast";
 
@@ -19,6 +21,7 @@ interface Comment {
   rating: number;
   date: string;
   comment: string;
+  avatar?: string;
 }
 
 const ProductDetail = () => {
@@ -29,6 +32,8 @@ const ProductDetail = () => {
   const [newRating, setNewRating] = useState(5);
   const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Mock auth state
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     // Simulate loading data
@@ -41,7 +46,13 @@ const ProductDetail = () => {
     id: id || "1",
     name: "Premium Watercolor Paint Set ✨",
     price: "৳2,499",
-    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=600&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1598982220203-ac2e31f69563?w=600&h=600&fit=crop"
+    ],
+    video: "https://player.vimeo.com/video/148751763",
     category: "paints",
     description: "This delightful watercolor paint set includes 24 vibrant colors perfect for creating your masterpieces! Each color is carefully crafted with high-quality pigments for smooth, brilliant results. Whether you're a beginner or a seasoned artist, this set will bring joy to your creative journey! 🎨",
     features: [
@@ -61,42 +72,59 @@ const ProductDetail = () => {
       author: "Sarah J.",
       rating: 5,
       date: "2 days ago",
-      comment: "Absolutely love these paints! The colors are so vibrant and blend beautifully. Perfect for my art projects! 💕"
+      comment: "Absolutely love these paints! The colors are so vibrant and blend beautifully. Perfect for my art projects! 💕",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
     },
     {
       id: 2,
       author: "Mike P.",
       rating: 4,
       date: "1 week ago",
-      comment: "Great quality paints! My daughter uses them for her art class and she's very happy with them. 🎨"
+      comment: "Great quality paints! My daughter uses them for her art class and she's very happy with them. 🎨",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike"
     },
     {
       id: 3,
       author: "Emma L.",
       rating: 5,
       date: "2 weeks ago",
-      comment: "These are the best watercolors I've ever used! The pigmentation is amazing and they last forever! ✨"
+      comment: "These are the best watercolors I've ever used! The pigmentation is amazing and they last forever! ✨",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma"
     }
   ]);
 
   const handleSubmitComment = () => {
+    if (!isLoggedIn) {
+      toast({
+        title: "Login Required 🔒",
+        description: "Please log in to leave a review",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     if (newComment.trim() && userName.trim()) {
       const comment: Comment = {
         id: comments.length + 1,
         author: userName,
         rating: newRating,
         date: "Just now",
-        comment: newComment
+        comment: newComment,
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${userName}`
       };
       setComments([comment, ...comments]);
       setNewComment("");
       setUserName("");
       setNewRating(5);
+      toast({
+        title: "Review Posted! ✨",
+        description: "Thank you for your feedback!"
+      });
     }
   };
 
   const handleAddToCart = () => {
-    addToCart(product);
+    addToCart({ ...product, image: product.images[0] });
     toast({
       title: "Added to Cart! 🛒",
       description: `${product.name} has been added to your cart! 💖`,
@@ -104,7 +132,7 @@ const ProductDetail = () => {
   };
 
   const handleToggleFavorite = () => {
-    toggleFavorite(product);
+    toggleFavorite({ ...product, image: product.images[0] });
     toast({
       title: isFavorite(product.id) ? "Removed from Favorites 💔" : "Added to Favorites! 💖",
       description: isFavorite(product.id) 
@@ -145,18 +173,63 @@ const ProductDetail = () => {
         </Link>
 
         <div className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-12">
-          {/* Product Image */}
-          <div className="relative">
-            <div className="rounded-2xl md:rounded-3xl overflow-hidden shadow-lg border-2 md:border-4 border-white bg-white">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-[300px] md:h-[500px] object-cover"
-              />
+          {/* Product Media Gallery */}
+          <div className="space-y-4">
+            {/* Main Image/Video */}
+            <div className="relative">
+              <div className="rounded-2xl md:rounded-3xl overflow-hidden shadow-lg border-2 md:border-4 border-white bg-white">
+                {currentImageIndex === product.images.length ? (
+                  <iframe
+                    src={product.video}
+                    className="w-full h-[300px] md:h-[400px]"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                    title="Product video"
+                  />
+                ) : (
+                  <img
+                    src={product.images[currentImageIndex]}
+                    alt={`${product.name} - View ${currentImageIndex + 1}`}
+                    className="w-full h-[300px] md:h-[400px] object-cover"
+                  />
+                )}
+              </div>
+              <Badge className="absolute top-2 md:top-4 right-2 md:right-4 px-3 md:px-4 py-1 md:py-2 text-xs md:text-sm animate-pulse bg-gradient-to-r from-accent via-primary to-accent bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite]">
+                NEW ✨
+              </Badge>
             </div>
-            <Badge className="absolute top-2 md:top-4 right-2 md:right-4 bg-accent text-accent-foreground px-3 md:px-4 py-1 md:py-2 text-xs md:text-sm">
-              NEW ✨
-            </Badge>
+
+            {/* Thumbnail Gallery */}
+            <div className="grid grid-cols-5 gap-2">
+              {product.images.map((img, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`rounded-lg overflow-hidden border-2 transition-all ${
+                    currentImageIndex === index
+                      ? "border-primary shadow-lg scale-105"
+                      : "border-gray-200 hover:border-primary/50"
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`Thumbnail ${index + 1}`}
+                    className="w-full h-16 md:h-20 object-cover"
+                  />
+                </button>
+              ))}
+              <button
+                onClick={() => setCurrentImageIndex(product.images.length)}
+                className={`rounded-lg overflow-hidden border-2 transition-all flex items-center justify-center bg-black/80 ${
+                  currentImageIndex === product.images.length
+                    ? "border-primary shadow-lg scale-105"
+                    : "border-gray-200 hover:border-primary/50"
+                }`}
+              >
+                <span className="text-white text-2xl">▶</span>
+              </button>
+            </div>
           </div>
 
           {/* Product Info */}
@@ -235,7 +308,17 @@ const ProductDetail = () => {
           {/* Leave a Comment */}
           <Card className="border-2 sm:border-4 border-primary/20 glass-card">
             <CardContent className="p-4 sm:p-6 space-y-4">
-              <h3 className="font-display text-xl text-primary">Leave a Review ✍️</h3>
+              <div className="flex items-center justify-between">
+                <h3 className="font-display text-xl text-primary">Leave a Review ✍️</h3>
+                {!isLoggedIn && (
+                  <Link to="/auth">
+                    <Button variant="outline" size="sm" className="gap-2">
+                      <User className="h-4 w-4" />
+                      Login to Review
+                    </Button>
+                  </Link>
+                )}
+              </div>
               
               <div className="space-y-4">
                 <div>
@@ -245,6 +328,7 @@ const ProductDetail = () => {
                     onChange={(e) => setUserName(e.target.value)}
                     placeholder="Enter your name"
                     className="rounded-xl border-2"
+                    disabled={!isLoggedIn}
                   />
                 </div>
 
@@ -270,14 +354,16 @@ const ProductDetail = () => {
                   <Textarea
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Share your experience with this product..."
+                    placeholder={isLoggedIn ? "Share your experience with this product..." : "Please log in to leave a review"}
                     className="rounded-xl border-2 min-h-[120px]"
+                    disabled={!isLoggedIn}
                   />
                 </div>
 
                 <Button 
                   onClick={handleSubmitComment}
                   className="rounded-full bg-gradient-to-r from-primary to-secondary hover:opacity-90"
+                  disabled={!isLoggedIn}
                 >
                   Post Review ✨
                 </Button>
@@ -290,24 +376,35 @@ const ProductDetail = () => {
             {comments.map((comment) => (
               <Card key={comment.id} className="border-2 sm:border-4 border-primary/10 hover:border-primary/20 transition-colors glass-card">
                 <CardContent className="p-4 sm:p-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <p className="font-medium text-lg text-foreground">{comment.author}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <div className="flex gap-0.5">
-                          {renderStars(comment.rating)}
+                  <div className="flex gap-4 mb-3">
+                    <Avatar className="h-12 w-12 border-2 border-primary/20">
+                      <AvatarImage src={comment.avatar} alt={comment.author} />
+                      <AvatarFallback className="bg-primary/10 text-primary">
+                        {comment.author.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <p className="font-medium text-lg text-foreground">{comment.author}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <div className="flex gap-0.5">
+                              {renderStars(comment.rating)}
+                            </div>
+                            <span className="text-sm text-muted-foreground">{comment.date}</span>
+                          </div>
                         </div>
-                        <span className="text-sm text-muted-foreground">{comment.date}</span>
                       </div>
+                      <p className="text-foreground/80 leading-relaxed">{comment.comment}</p>
                     </div>
                   </div>
-                  <p className="text-foreground/80 leading-relaxed">{comment.comment}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
         </div>
       </div>
+      <BackToTop />
     </div>
   );
 };
