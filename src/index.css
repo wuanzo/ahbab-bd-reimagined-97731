@@ -171,3 +171,17 @@ All colors MUST be HSL.
     opacity: 0;
   }
 }
+
+@keyframes shine {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
