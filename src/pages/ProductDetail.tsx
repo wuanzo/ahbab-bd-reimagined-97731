@@ -44,7 +44,7 @@ const ProductDetail = () => {
   // Mock product data - in real app, fetch based on id
   const product = {
     id: id || "1",
-    name: "Premium Watercolor Paint Set ✨",
+    name: "Premium Watercolor Paint Set",
     price: "৳2,499",
     images: [
       "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=600&fit=crop",
@@ -54,13 +54,13 @@ const ProductDetail = () => {
     ],
     video: "https://player.vimeo.com/video/148751763",
     category: "paints",
-    description: "This delightful watercolor paint set includes 24 vibrant colors perfect for creating your masterpieces! Each color is carefully crafted with high-quality pigments for smooth, brilliant results. Whether you're a beginner or a seasoned artist, this set will bring joy to your creative journey! 🎨",
+    description: "This professional watercolor paint set includes 24 vibrant colors perfect for creating stunning artwork. Each color is carefully crafted with high-quality pigments for smooth, brilliant results. Ideal for both beginners and experienced artists.",
     features: [
-      "24 vibrant, fade-resistant colors 🌈",
-      "Professional-grade pigments ✨",
-      "Smooth, creamy texture 💖",
-      "Perfect for all skill levels 🎭",
-      "Eco-friendly packaging 🌿"
+      "24 vibrant, fade-resistant colors",
+      "Professional-grade pigments",
+      "Smooth, creamy texture",
+      "Suitable for all skill levels",
+      "Eco-friendly packaging"
     ],
     rating: 4.8,
     totalReviews: 128
@@ -72,7 +72,7 @@ const ProductDetail = () => {
       author: "Sarah J.",
       rating: 5,
       date: "2 days ago",
-      comment: "Absolutely love these paints! The colors are so vibrant and blend beautifully. Perfect for my art projects! 💕",
+      comment: "Absolutely love these paints! The colors are so vibrant and blend beautifully. Perfect for my art projects.",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
     },
     {
@@ -80,7 +80,7 @@ const ProductDetail = () => {
       author: "Mike P.",
       rating: 4,
       date: "1 week ago",
-      comment: "Great quality paints! My daughter uses them for her art class and she's very happy with them. 🎨",
+      comment: "Great quality paints! My daughter uses them for her art class and she's very happy with them.",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike"
     },
     {
@@ -88,7 +88,7 @@ const ProductDetail = () => {
       author: "Emma L.",
       rating: 5,
       date: "2 weeks ago",
-      comment: "These are the best watercolors I've ever used! The pigmentation is amazing and they last forever! ✨",
+      comment: "These are the best watercolors I've ever used! The pigmentation is amazing and they last forever!",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma"
     }
   ]);
@@ -117,7 +117,7 @@ const ProductDetail = () => {
       setUserName("");
       setNewRating(5);
       toast({
-        title: "Review Posted! ✨",
+        title: "Review Posted",
         description: "Thank you for your feedback!"
       });
     }
@@ -126,26 +126,26 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     addToCart({ ...product, image: product.images[0] });
     toast({
-      title: "Added to Cart! 🛒",
-      description: `${product.name} has been added to your cart! 💖`,
+      title: "Added to Cart",
+      description: `${product.name} has been added to your cart`,
     });
   };
 
   const handleToggleFavorite = () => {
     toggleFavorite({ ...product, image: product.images[0] });
     toast({
-      title: isFavorite(product.id) ? "Removed from Favorites 💔" : "Added to Favorites! 💖",
+      title: isFavorite(product.id) ? "Removed from Favorites" : "Added to Favorites",
       description: isFavorite(product.id) 
         ? "Item removed from your wishlist" 
-        : "Item saved to your wishlist! ✨",
+        : "Item saved to your wishlist",
     });
   };
 
   const relatedProducts = [
-    { id: "r1", name: "Acrylic Paint Set ✨", image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500", price: "৳ 899", category: "paints" },
-    { id: "r2", name: "Premium Brush Set 🖌️", image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=500", price: "৳ 599", category: "brushes" },
-    { id: "r3", name: "Canvas Board Pack 🖼️", image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=500", price: "৳ 399", category: "canvases" },
-    { id: "r4", name: "Mixing Palette 🌈", image: "https://images.unsplash.com/photo-1598982220203-ac2e31f69563?w=500", price: "৳ 299", category: "palettes" },
+    { id: "r1", name: "Acrylic Paint Set", image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500", price: "৳ 899", category: "paints" },
+    { id: "r2", name: "Premium Brush Set", image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=500", price: "৳ 599", category: "brushes" },
+    { id: "r3", name: "Canvas Board Pack", image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=500", price: "৳ 399", category: "canvases" },
+    { id: "r4", name: "Mixing Palette", image: "https://images.unsplash.com/photo-1598982220203-ac2e31f69563?w=500", price: "৳ 299", category: "palettes" },
   ];
 
   const renderStars = (rating: number, size: string = "w-4 h-4") => {
@@ -195,8 +195,8 @@ const ProductDetail = () => {
                   />
                 )}
               </div>
-              <Badge className="absolute top-2 md:top-4 right-2 md:right-4 px-3 md:px-4 py-1 md:py-2 text-xs md:text-sm animate-pulse bg-gradient-to-r from-accent via-primary to-accent bg-[length:200%_100%] animate-[shimmer_2s_linear_infinite]">
-                NEW ✨
+              <Badge className="absolute top-2 md:top-4 right-2 md:right-4 px-3 md:px-4 py-1 md:py-2 text-xs md:text-sm bg-gradient-to-r from-accent via-white to-primary bg-[length:200%_100%] animate-[shimmer_3s_ease-in-out]">
+                NEW
               </Badge>
             </div>
 
@@ -235,30 +235,33 @@ const ProductDetail = () => {
           {/* Product Info */}
           <div className="space-y-4 md:space-y-6">
             <div>
-              <h1 className="text-2xl md:text-4xl font-display text-primary mb-2">{product.name}</h1>
-              <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
+              <h1 className="text-2xl md:text-4xl font-display text-primary mb-3">{product.name}</h1>
+              <div className="flex items-center gap-2 md:gap-3 mb-4">
                 <div className="flex items-center gap-1">
                   {renderStars(Math.round(product.rating), "w-4 h-4 md:w-5 md:h-5")}
                 </div>
-                <span className="text-sm md:text-lg font-medium text-foreground/80">
+                <span className="text-sm md:text-base font-medium text-foreground/70">
                   {product.rating} ({product.totalReviews} reviews)
                 </span>
               </div>
-              <p className="text-3xl md:text-4xl font-bold text-primary mb-3 md:mb-4">{product.price}</p>
+              <p className="text-3xl md:text-4xl font-bold text-primary mb-6">{product.price}</p>
             </div>
 
-            <Card className="border-2 md:border-4 border-primary/20 glass-card">
-              <CardContent className="p-4 md:p-6">
-                <h3 className="font-display text-lg md:text-xl text-primary mb-3">Product Details 💝</h3>
-                <p className="text-sm md:text-base text-foreground/80 mb-4 leading-relaxed">{product.description}</p>
-                <ul className="space-y-2">
-                  {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-2 text-sm md:text-base text-foreground/80">
-                      <span className="text-primary mt-0.5 md:mt-1">•</span>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+            <Card className="border-2 border-primary/20 glass-card">
+              <CardContent className="p-5 md:p-6 space-y-4">
+                <h3 className="font-display text-lg md:text-xl text-primary">Product Details</h3>
+                <p className="text-sm md:text-base text-foreground/80 leading-relaxed">{product.description}</p>
+                <div className="pt-2">
+                  <h4 className="font-semibold text-sm md:text-base text-foreground mb-3">Key Features</h4>
+                  <ul className="space-y-2">
+                    {product.features.map((feature, index) => (
+                      <li key={index} className="flex items-start gap-2 text-sm md:text-base text-foreground/80">
+                        <span className="text-primary mt-0.5">•</span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </CardContent>
             </Card>
 
@@ -290,10 +293,7 @@ const ProductDetail = () => {
 
         {/* Related Products */}
         <div className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-2xl sm:text-3xl font-display text-primary">You Might Also Love 💕</h2>
-            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-accent animate-pulse" />
-          </div>
+          <h2 className="text-2xl sm:text-3xl font-display text-primary mb-6">You Might Also Like</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {relatedProducts.map((relatedProduct) => (
               <ProductCard key={relatedProduct.id} {...relatedProduct} />
@@ -303,13 +303,13 @@ const ProductDetail = () => {
 
         {/* Reviews Section */}
         <div className="space-y-6">
-          <h2 className="text-2xl sm:text-3xl font-display text-primary">Customer Reviews 💬</h2>
+          <h2 className="text-2xl sm:text-3xl font-display text-primary">Customer Reviews</h2>
           
           {/* Leave a Comment */}
-          <Card className="border-2 sm:border-4 border-primary/20 glass-card">
+          <Card className="border-2 border-primary/20 glass-card">
             <CardContent className="p-4 sm:p-6 space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="font-display text-xl text-primary">Leave a Review ✍️</h3>
+                <h3 className="font-display text-lg md:text-xl text-primary">Leave a Review</h3>
                 {!isLoggedIn && (
                   <Link to="/auth">
                     <Button variant="outline" size="sm" className="gap-2">
@@ -365,7 +365,7 @@ const ProductDetail = () => {
                   className="rounded-full bg-gradient-to-r from-primary to-secondary hover:opacity-90"
                   disabled={!isLoggedIn}
                 >
-                  Post Review ✨
+                  Post Review
                 </Button>
               </div>
             </CardContent>
