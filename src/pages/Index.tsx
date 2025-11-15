@@ -17,7 +17,7 @@ const paintProducts = [
 ];
 
 const brushProducts = [
-  { id: "brush-1", name: "Round Brush Set - 12 Pieces", image: "https://images.unsplash.com/photo-1596548438137-d51ea5c83ca5?w=400&h=400&fit=crop", price: "৳ 299", category: "brushes", badge: "new" as const },
+  { id: "brush-1", name: "Round Brush Set - 12 Pieces", image: "https://images.unsplash.com/photo-1596548438137-d51ea5c83ca5?w=400&h=400&fit=crop", price: "৳ 299", category: "brushes", badge: "hot" as const },
   { id: "brush-2", name: "Flat Brush Set", image: "https://images.unsplash.com/photo-1565688534245-05d6b5be184a?w=400&h=400&fit=crop", price: "৳ 349", category: "brushes", badge: "hot" as const },
   { id: "brush-3", name: "Fan Brush Collection", image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=400&fit=crop", price: "৳ 249", category: "brushes", badge: "new" as const },
   { id: "brush-4", name: "Detail Brush Set", image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=400&h=400&fit=crop", price: "৳ 399", category: "brushes", badge: "new" as const },

@@ -66,14 +66,16 @@ export const ProductCard = ({ id = "1", name, image, price = "৳ 299", category
               <Heart className={`h-5 w-5 ${isFavorite(id) ? "fill-primary text-primary" : "text-primary"}`} />
             </button>
             {badge === "new" && (
-              <Badge className="absolute top-3 left-3 px-3 py-1 text-xs font-bold shadow-lg bg-gradient-to-r from-accent via-white to-primary bg-[length:200%_100%] animate-[shimmer_3s_ease-in-out]">
-                NEW
+              <Badge className="absolute top-3 left-3 px-3 py-1 text-xs font-bold shadow-lg bg-gradient-to-r from-accent via-white to-primary overflow-hidden">
+                <span className="relative z-10">NEW</span>
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[shine_2s_ease-in-out_infinite]"></span>
               </Badge>
             )}
             {badge === "hot" && (
-              <Badge className="absolute top-3 left-3 px-3 py-1 text-xs font-bold shadow-lg bg-gradient-to-r from-orange-400 via-yellow-200 to-red-400 bg-[length:200%_100%] animate-[shimmer_3s_ease-in-out]">
-                <Flame className="h-3 w-3 inline mr-1" />
-                HOT
+              <Badge className="absolute top-3 left-3 px-3 py-1 text-xs font-bold shadow-lg bg-gradient-to-r from-orange-400 via-red-400 to-orange-600 overflow-hidden">
+                <Flame className="h-3 w-3 inline mr-1 relative z-10" />
+                <span className="relative z-10">HOT</span>
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-yellow-300/80 to-transparent animate-[shine_1.5s_ease-in-out_infinite]"></span>
               </Badge>
             )}
           </div>

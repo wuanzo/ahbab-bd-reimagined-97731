@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, Package, CreditCard } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ArrowLeft, Package, CreditCard, Truck, Store, Banknote, Wallet } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Checkout() {
@@ -28,6 +29,9 @@ export default function Checkout() {
     cardCVV: "",
   });
 
+  const [deliveryMethod, setDeliveryMethod] = useState("delivery");
+  const [paymentMethod, setPaymentMethod] = useState("cod");
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -36,25 +40,46 @@ export default function Checkout() {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.fullName || !formData.email || !formData.phone || !formData.address) {
+    if (!formData.fullName || !formData.email || !formData.phone) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all required fields! 💖",
+        description: "Please fill in all required fields",
         variant: "destructive",
       });
       return;
     }
 
+    if (deliveryMethod === "delivery" && !formData.address) {
+      toast({
+        title: "Missing Address",
+        description: "Please provide a delivery address",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (paymentMethod === "prepaid") {
+      // Redirect to payment portal
+      toast({
+        title: "Redirecting to Payment",
+        description: "Please wait while we redirect you to our payment partner...",
+      });
+      setTimeout(() => {
+        window.open("https://payment-portal.example.com", "_blank");
+      }, 1500);
+      return;
+    }
+
     toast({
-      title: "Order Placed! 🎉",
-      description: "Thank you for your order! We'll send you a confirmation email soon! 💝",
+      title: "Order Placed",
+      description: "Thank you for your order! We'll send you a confirmation email soon.",
     });
     
-    setTimeout(() => navigate("/"), 2000);
+    setTimeout(() => navigate("/order-confirmation"), 2000);
   };
 
   const subtotal = getCartTotal();
-  const shipping = 50;
+  const shipping = deliveryMethod === "delivery" ? 50 : 0;
   const total = subtotal + shipping;
 
   if (cart.length === 0) {

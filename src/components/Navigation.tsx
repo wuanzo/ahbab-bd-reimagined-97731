@@ -1,10 +1,10 @@
-import { Home, Award, Info, Gift } from "lucide-react";
+import { Home, Award, Info, Sparkles } from "lucide-react";
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
   { name: "All Brands", href: "/brands", icon: Award },
   { name: "About Us", href: "/about", icon: Info },
-  { name: "Combo Deals", href: "/combos", icon: Gift },
+  { name: "Weekly Features", href: "/weekly-features", icon: Sparkles },
 ];
 
 export const Navigation = () => {
