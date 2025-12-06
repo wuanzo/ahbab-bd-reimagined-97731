@@ -195,16 +195,16 @@ const ProductDetail = () => {
           Back to Shop
         </Link>
 
-        <div className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-12">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-10 mb-8 md:mb-12 items-start">
           {/* Product Media Gallery */}
           <div className="space-y-4">
             {/* Main Image/Video */}
-            <div className="relative">
-              <div className="rounded-2xl md:rounded-3xl overflow-hidden shadow-lg border-2 md:border-4 border-white bg-white">
+            <div className="relative aspect-square">
+              <div className="rounded-2xl md:rounded-3xl overflow-hidden shadow-lg border-2 md:border-4 border-white/50 bg-white h-full">
                 {currentImageIndex === product.images.length ? (
                   <iframe
                     src={product.video}
-                    className="w-full h-[300px] md:h-[400px]"
+                    className="w-full h-full"
                     frameBorder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
@@ -214,67 +214,67 @@ const ProductDetail = () => {
                   <img
                     src={product.images[currentImageIndex]}
                     alt={`${product.name} - View ${currentImageIndex + 1}`}
-                    className="w-full h-[300px] md:h-[400px] object-cover"
+                    className="w-full h-full object-cover"
                   />
                 )}
               </div>
-              <Badge className="absolute top-2 md:top-4 right-2 md:right-4 px-3 md:px-4 py-1 md:py-2 text-xs md:text-sm bg-gradient-to-r from-accent via-white to-primary bg-[length:200%_100%] animate-[shimmer_3s_ease-in-out]">
+              <Badge className="absolute top-3 md:top-4 right-3 md:right-4 px-3 md:px-4 py-1.5 text-xs md:text-sm bg-gradient-to-r from-accent via-white to-primary bg-[length:200%_100%] animate-[shimmer_3s_ease-in-out]">
                 NEW
               </Badge>
             </div>
 
             {/* Thumbnail Gallery */}
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-5 gap-2 md:gap-3">
               {product.images.map((img, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`rounded-lg overflow-hidden border-2 transition-all ${
+                  className={`aspect-square rounded-xl overflow-hidden border-2 transition-all ${
                     currentImageIndex === index
                       ? "border-primary shadow-lg scale-105"
-                      : "border-gray-200 hover:border-primary/50"
+                      : "border-white/50 hover:border-primary/50"
                   }`}
                 >
                   <img
                     src={img}
                     alt={`Thumbnail ${index + 1}`}
-                    className="w-full h-16 md:h-20 object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </button>
               ))}
               <button
                 onClick={() => setCurrentImageIndex(product.images.length)}
-                className={`rounded-lg overflow-hidden border-2 transition-all flex items-center justify-center bg-black/80 ${
+                className={`aspect-square rounded-xl overflow-hidden border-2 transition-all flex items-center justify-center bg-black/80 ${
                   currentImageIndex === product.images.length
                     ? "border-primary shadow-lg scale-105"
-                    : "border-gray-200 hover:border-primary/50"
+                    : "border-white/50 hover:border-primary/50"
                 }`}
               >
-                <span className="text-white text-2xl">▶</span>
+                <span className="text-white text-xl md:text-2xl">▶</span>
               </button>
             </div>
           </div>
 
           {/* Product Info */}
-          <div className="space-y-4 md:space-y-6">
-            <div>
-              <h1 className="text-2xl md:text-4xl font-display text-primary mb-3">{product.name}</h1>
-              <div className="flex items-center gap-2 md:gap-3 mb-4">
-                <div className="flex items-center gap-1">
+          <div className="space-y-5">
+            {/* Header Section */}
+            <div className="glass-card rounded-2xl p-5 md:p-6 border-2 border-primary/10">
+              <h1 className="text-2xl md:text-3xl font-display text-primary mb-3">{product.name}</h1>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-0.5">
                   {renderStars(Math.round(product.rating), "w-4 h-4 md:w-5 md:h-5")}
                 </div>
-                <span className="text-sm md:text-base font-medium text-foreground/70">
+                <span className="text-sm font-medium text-foreground/70">
                   {product.rating} ({product.totalReviews} reviews)
                 </span>
               </div>
-              <p className="text-3xl md:text-4xl font-bold text-primary mb-4">{product.price}</p>
-              
-              {/* Stock Status */}
-              <div className="mb-6">
+              <div className="flex items-center justify-between flex-wrap gap-3">
+                <p className="text-3xl md:text-4xl font-bold text-primary">{product.price}</p>
+                {/* Stock Status */}
                 {product.stock > 0 ? (
                   <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-400/20 to-accent/20 border-2 border-green-400/30 text-green-600 font-medium text-sm">
                     <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                    In Stock ({product.stock} available)
+                    In Stock ({product.stock})
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-400/20 to-primary/20 border-2 border-red-400/30 text-red-500 font-medium text-sm">
@@ -285,15 +285,16 @@ const ProductDetail = () => {
               </div>
             </div>
 
+            {/* Product Details Card */}
             <Card className="border-2 border-primary/20 glass-card">
               <CardContent className="p-5 md:p-6 space-y-4">
-                <h3 className="font-display text-lg md:text-xl text-primary">Product Details</h3>
+                <h3 className="font-display text-lg text-primary">Product Details</h3>
                 <p className="text-sm md:text-base text-foreground/80 leading-relaxed">{product.description}</p>
                 <div className="pt-2">
-                  <h4 className="font-semibold text-sm md:text-base text-foreground mb-3">Key Features</h4>
+                  <h4 className="font-semibold text-sm text-foreground mb-3">Key Features</h4>
                   <ul className="space-y-2">
                     {product.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm md:text-base text-foreground/80">
+                      <li key={index} className="flex items-start gap-2 text-sm text-foreground/80">
                         <span className="text-primary mt-0.5">•</span>
                         <span>{feature}</span>
                       </li>
@@ -303,88 +304,91 @@ const ProductDetail = () => {
               </CardContent>
             </Card>
 
-            {/* Quantity Selector */}
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-sm font-medium text-foreground/70">Quantity:</span>
-              <div className="flex items-center gap-2 glass-card rounded-full p-1 border-2 border-primary/20">
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={decrementQuantity}
-                  disabled={quantity <= 1 || product.stock === 0}
-                  className="h-10 w-10 rounded-full hover:bg-primary/10"
-                >
-                  <Minus className="w-4 h-4" />
-                </Button>
-                <span className="w-12 text-center font-bold text-lg text-primary">{quantity}</span>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={incrementQuantity}
-                  disabled={quantity >= product.stock || product.stock === 0}
-                  className="h-10 w-10 rounded-full hover:bg-primary/10"
-                >
-                  <Plus className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
+            {/* Actions Card */}
+            <Card className="border-2 border-primary/20 glass-card">
+              <CardContent className="p-5 md:p-6 space-y-4">
+                {/* Quantity Selector */}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-foreground/70">Quantity</span>
+                  <div className="flex items-center gap-1 bg-primary/5 rounded-full p-1 border border-primary/20">
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={decrementQuantity}
+                      disabled={quantity <= 1 || product.stock === 0}
+                      className="h-9 w-9 rounded-full hover:bg-primary/10"
+                    >
+                      <Minus className="w-4 h-4" />
+                    </Button>
+                    <span className="w-10 text-center font-bold text-lg text-primary">{quantity}</span>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={incrementQuantity}
+                      disabled={quantity >= product.stock || product.stock === 0}
+                      className="h-9 w-9 rounded-full hover:bg-primary/10"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
 
-            <div className="flex gap-3 sm:gap-4">
-              <Button 
-                size="lg" 
-                onClick={handleAddToCart}
-                disabled={product.stock === 0}
-                className="flex-1 rounded-full text-base sm:text-lg font-medium h-12 sm:h-14 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity disabled:opacity-50"
-              >
-                <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="hidden sm:inline">Add to Cart</span>
-                <span className="sm:hidden">Add</span>
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                onClick={handleToggleFavorite}
-                className={`rounded-full border-4 h-12 sm:h-14 px-4 sm:px-6 ${
-                  isFavorite(product.id) 
-                    ? "border-red-400 bg-red-50 hover:bg-red-100" 
-                    : "border-primary/20 hover:bg-primary/10"
-                }`}
-              >
-                <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${isFavorite(product.id) ? "fill-red-500 text-red-500" : ""}`} />
-              </Button>
-            </div>
+                {/* Cart & Favorite Buttons */}
+                <div className="flex gap-3">
+                  <Button 
+                    size="lg" 
+                    onClick={handleAddToCart}
+                    disabled={product.stock === 0}
+                    className="flex-1 rounded-full text-base font-medium h-12 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity disabled:opacity-50"
+                  >
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    Add to Cart
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline"
+                    onClick={handleToggleFavorite}
+                    className={`rounded-full h-12 w-12 p-0 border-2 ${
+                      isFavorite(product.id) 
+                        ? "border-red-400 bg-red-50 hover:bg-red-100" 
+                        : "border-primary/20 hover:bg-primary/10"
+                    }`}
+                  >
+                    <Heart className={`w-5 h-5 ${isFavorite(product.id) ? "fill-red-500 text-red-500" : ""}`} />
+                  </Button>
+                </div>
 
-            {/* Social Buttons */}
-            <div className="flex gap-3 mt-4">
-              <a
-                href={shopSocials.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1"
-              >
-                <Button
-                  variant="outline"
-                  className="w-full rounded-full h-12 border-2 border-blue-500/30 bg-gradient-to-r from-blue-500/10 to-primary/10 hover:from-blue-500/20 hover:to-primary/20 text-blue-600 gap-2"
-                >
-                  <Facebook className="w-5 h-5" />
-                  Facebook
-                </Button>
-              </a>
-              <a
-                href={shopSocials.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1"
-              >
-                <Button
-                  variant="outline"
-                  className="w-full rounded-full h-12 border-2 border-green-500/30 bg-gradient-to-r from-green-500/10 to-accent/10 hover:from-green-500/20 hover:to-accent/20 text-green-600 gap-2"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  WhatsApp
-                </Button>
-              </a>
-            </div>
+                {/* Social Buttons */}
+                <div className="grid grid-cols-2 gap-3 pt-2">
+                  <a
+                    href={shopSocials.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button
+                      variant="outline"
+                      className="w-full rounded-full h-11 border-2 border-blue-500/30 bg-gradient-to-r from-blue-500/10 to-primary/10 hover:from-blue-500/20 hover:to-primary/20 text-blue-600 gap-2"
+                    >
+                      <Facebook className="w-4 h-4" />
+                      Facebook
+                    </Button>
+                  </a>
+                  <a
+                    href={shopSocials.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button
+                      variant="outline"
+                      className="w-full rounded-full h-11 border-2 border-green-500/30 bg-gradient-to-r from-green-500/10 to-accent/10 hover:from-green-500/20 hover:to-accent/20 text-green-600 gap-2"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      WhatsApp
+                    </Button>
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
