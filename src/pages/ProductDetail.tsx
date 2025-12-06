@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Star, Heart, ShoppingCart, ArrowLeft, Sparkles, User } from "lucide-react";
+import { Star, Heart, ShoppingCart, ArrowLeft, Sparkles, User, Facebook, MessageCircle, Plus, Minus } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
@@ -34,6 +34,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Mock auth state
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     // Simulate loading data
@@ -63,7 +64,14 @@ const ProductDetail = () => {
       "Eco-friendly packaging"
     ],
     rating: 4.8,
-    totalReviews: 128
+    totalReviews: 128,
+    stock: 15 // Mock stock - 0 for out of stock
+  };
+
+  // Social links for the shop
+  const shopSocials = {
+    facebook: "https://facebook.com/yourshop",
+    whatsapp: "https://wa.me/1234567890"
   };
 
   const [comments, setComments] = useState<Comment[]>([
@@ -124,11 +132,26 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    addToCart({ ...product, image: product.images[0] });
+    for (let i = 0; i < quantity; i++) {
+      addToCart({ ...product, image: product.images[0] });
+    }
     toast({
       title: "Added to Cart",
-      description: `${product.name} has been added to your cart`,
+      description: `${quantity} x ${product.name} added to your cart`,
     });
+    setQuantity(1);
+  };
+
+  const incrementQuantity = () => {
+    if (product.stock > 0 && quantity < product.stock) {
+      setQuantity(prev => prev + 1);
+    }
+  };
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1);
+    }
   };
 
   const handleToggleFavorite = () => {
@@ -244,7 +267,22 @@ const ProductDetail = () => {
                   {product.rating} ({product.totalReviews} reviews)
                 </span>
               </div>
-              <p className="text-3xl md:text-4xl font-bold text-primary mb-6">{product.price}</p>
+              <p className="text-3xl md:text-4xl font-bold text-primary mb-4">{product.price}</p>
+              
+              {/* Stock Status */}
+              <div className="mb-6">
+                {product.stock > 0 ? (
+                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-400/20 to-accent/20 border-2 border-green-400/30 text-green-600 font-medium text-sm">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    In Stock ({product.stock} available)
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-red-400/20 to-primary/20 border-2 border-red-400/30 text-red-500 font-medium text-sm">
+                    <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                    Out of Stock
+                  </span>
+                )}
+              </div>
             </div>
 
             <Card className="border-2 border-primary/20 glass-card">
@@ -265,11 +303,38 @@ const ProductDetail = () => {
               </CardContent>
             </Card>
 
+            {/* Quantity Selector */}
+            <div className="flex items-center gap-4 mb-6">
+              <span className="text-sm font-medium text-foreground/70">Quantity:</span>
+              <div className="flex items-center gap-2 glass-card rounded-full p-1 border-2 border-primary/20">
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={decrementQuantity}
+                  disabled={quantity <= 1 || product.stock === 0}
+                  className="h-10 w-10 rounded-full hover:bg-primary/10"
+                >
+                  <Minus className="w-4 h-4" />
+                </Button>
+                <span className="w-12 text-center font-bold text-lg text-primary">{quantity}</span>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={incrementQuantity}
+                  disabled={quantity >= product.stock || product.stock === 0}
+                  className="h-10 w-10 rounded-full hover:bg-primary/10"
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+
             <div className="flex gap-3 sm:gap-4">
               <Button 
                 size="lg" 
                 onClick={handleAddToCart}
-                className="flex-1 rounded-full text-base sm:text-lg font-medium h-12 sm:h-14 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
+                disabled={product.stock === 0}
+                className="flex-1 rounded-full text-base sm:text-lg font-medium h-12 sm:h-14 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity disabled:opacity-50"
               >
                 <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span className="hidden sm:inline">Add to Cart</span>
@@ -287,6 +352,38 @@ const ProductDetail = () => {
               >
                 <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${isFavorite(product.id) ? "fill-red-500 text-red-500" : ""}`} />
               </Button>
+            </div>
+
+            {/* Social Buttons */}
+            <div className="flex gap-3 mt-4">
+              <a
+                href={shopSocials.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1"
+              >
+                <Button
+                  variant="outline"
+                  className="w-full rounded-full h-12 border-2 border-blue-500/30 bg-gradient-to-r from-blue-500/10 to-primary/10 hover:from-blue-500/20 hover:to-primary/20 text-blue-600 gap-2"
+                >
+                  <Facebook className="w-5 h-5" />
+                  Facebook
+                </Button>
+              </a>
+              <a
+                href={shopSocials.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1"
+              >
+                <Button
+                  variant="outline"
+                  className="w-full rounded-full h-12 border-2 border-green-500/30 bg-gradient-to-r from-green-500/10 to-accent/10 hover:from-green-500/20 hover:to-accent/20 text-green-600 gap-2"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp
+                </Button>
+              </a>
             </div>
           </div>
         </div>
