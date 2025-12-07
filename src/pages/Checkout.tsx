@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, Package, Truck, Store, Smartphone, AlertTriangle, MapPin } from "lucide-react";
+import { ArrowLeft, Package, Truck, Store, Smartphone, AlertTriangle, MapPin, Tag } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const STORE_ADDRESS = "House 12, Road 5, Dhanmondi, Dhaka 1205, Bangladesh";
@@ -31,8 +31,9 @@ export default function Checkout() {
   });
 
   const [deliveryMethod, setDeliveryMethod] = useState("delivery");
-  const [paymentMethod, setPaymentMethod] = useState("bkash");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [couponCode, setCouponCode] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -40,7 +41,8 @@ export default function Checkout() {
 
   const subtotal = getCartTotal();
   const shipping = deliveryMethod === "delivery" ? 60 : 0;
-  const total = subtotal + shipping;
+  const discount = couponApplied ? Math.round(subtotal * 0.1) : 0;
+  const total = subtotal + shipping - discount;
 
   const getAdvanceAmount = () => {
     if (total > 500) return 300;
@@ -50,6 +52,22 @@ export default function Checkout() {
 
   const advanceAmount = getAdvanceAmount();
   const requiresAdvance = advanceAmount > 0;
+
+  const handleApplyCoupon = () => {
+    if (couponCode.toLowerCase() === "save10") {
+      setCouponApplied(true);
+      toast({
+        title: "Coupon Applied!",
+        description: "10% discount has been applied to your order.",
+      });
+    } else if (couponCode.trim()) {
+      toast({
+        title: "Invalid Coupon",
+        description: "The coupon code you entered is not valid.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,14 +141,14 @@ export default function Checkout() {
           Back to Shop
         </Link>
 
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-display text-primary mb-2">Checkout</h1>
-          <p className="text-muted-foreground">Complete your order</p>
+        <div className="text-center mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-4xl font-display text-primary mb-2">Checkout</h1>
+          <p className="text-sm md:text-base text-muted-foreground">Complete your order</p>
         </div>
 
         <div className="max-w-6xl mx-auto">
-          {/* Step Indicators */}
-          <div className="flex justify-center mb-8">
+          {/* Step Indicators - Hidden on mobile */}
+          <div className="hidden md:flex justify-center mb-8">
             <div className="flex items-center gap-2 text-sm">
               <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold">1</div>
               <span className="text-primary font-medium">Details</span>
@@ -143,49 +161,118 @@ export default function Checkout() {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Left Column */}
-            <div className="space-y-6">
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
+            {/* Left Column - Order Details */}
+            <div className="space-y-5 md:space-y-6">
+              {/* Order Summary */}
+              <div className="glass-card rounded-2xl p-4 md:p-6 border-2 border-primary/10">
+                <h2 className="text-base md:text-lg font-display text-primary mb-4 text-center">Order Summary</h2>
+                
+                <div className="space-y-3 max-h-[180px] overflow-y-auto pr-2 mb-4">
+                  {cart.map((item) => (
+                    <div key={item.id} className="flex gap-3 p-2 md:p-3 bg-muted/30 rounded-xl">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">{item.name}</p>
+                        <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                        <p className="text-sm font-semibold text-primary">{item.price}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Coupon Code */}
+                <div className="flex gap-2 mb-4">
+                  <div className="relative flex-1">
+                    <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Coupon code (optional)"
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value)}
+                      disabled={couponApplied}
+                      className="pl-9 rounded-xl border-2 border-border/50 focus:border-primary h-10 md:h-11 text-sm"
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleApplyCoupon}
+                    disabled={couponApplied || !couponCode.trim()}
+                    className="rounded-xl border-2 px-4 text-sm"
+                  >
+                    {couponApplied ? "Applied" : "Apply"}
+                  </Button>
+                </div>
+
+                <Separator className="my-3" />
+
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Subtotal</span>
+                    <span className="font-medium">৳{subtotal.toFixed(0)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Shipping</span>
+                    <span className="font-medium">{shipping === 0 ? "Free" : `৳${shipping}`}</span>
+                  </div>
+                  {couponApplied && (
+                    <div className="flex justify-between text-green-600">
+                      <span>Discount (10%)</span>
+                      <span>-৳{discount}</span>
+                    </div>
+                  )}
+                  <Separator className="my-2" />
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold">Total</span>
+                    <span className="text-xl md:text-2xl font-display text-primary">৳{total.toFixed(0)}</span>
+                  </div>
+                </div>
+              </div>
+
               {/* Delivery Method Card */}
-              <div className="glass-card rounded-2xl p-6 border-2 border-primary/10">
-                <h2 className="text-lg font-display text-primary mb-5 text-center">Choose Delivery Method</h2>
-                <RadioGroup value={deliveryMethod} onValueChange={setDeliveryMethod} className="grid grid-cols-2 gap-4">
+              <div className="glass-card rounded-2xl p-4 md:p-6 border-2 border-primary/10">
+                <h2 className="text-base md:text-lg font-display text-primary mb-4 text-center">Delivery Method</h2>
+                <RadioGroup value={deliveryMethod} onValueChange={setDeliveryMethod} className="grid grid-cols-2 gap-3 md:gap-4">
                   <Label
                     htmlFor="delivery"
-                    className={`flex flex-col items-center gap-3 p-5 rounded-2xl cursor-pointer border-2 transition-all text-center ${
+                    className={`flex flex-col items-center gap-2 md:gap-3 p-3 md:p-5 rounded-2xl cursor-pointer border-2 transition-all text-center ${
                       deliveryMethod === "delivery" 
                         ? "border-primary bg-primary/10 shadow-lg shadow-primary/10" 
                         : "border-border/50 hover:border-primary/50 bg-muted/30"
                     }`}
                   >
                     <RadioGroupItem value="delivery" id="delivery" className="sr-only" />
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center ${
                       deliveryMethod === "delivery" ? "bg-primary text-primary-foreground" : "bg-muted"
                     }`}>
-                      <Truck className="w-6 h-6" />
+                      <Truck className="w-5 h-5 md:w-6 md:h-6" />
                     </div>
                     <div>
-                      <p className="font-semibold">Home Delivery</p>
-                      <p className="text-sm text-muted-foreground">৳60 shipping</p>
+                      <p className="text-sm md:text-base font-semibold">Home Delivery</p>
+                      <p className="text-xs text-muted-foreground">৳60 shipping</p>
                     </div>
                   </Label>
                   <Label
                     htmlFor="pickup"
-                    className={`flex flex-col items-center gap-3 p-5 rounded-2xl cursor-pointer border-2 transition-all text-center ${
+                    className={`flex flex-col items-center gap-2 md:gap-3 p-3 md:p-5 rounded-2xl cursor-pointer border-2 transition-all text-center ${
                       deliveryMethod === "pickup" 
                         ? "border-primary bg-primary/10 shadow-lg shadow-primary/10" 
                         : "border-border/50 hover:border-primary/50 bg-muted/30"
                     }`}
                   >
                     <RadioGroupItem value="pickup" id="pickup" className="sr-only" />
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center ${
                       deliveryMethod === "pickup" ? "bg-primary text-primary-foreground" : "bg-muted"
                     }`}>
-                      <Store className="w-6 h-6" />
+                      <Store className="w-5 h-5 md:w-6 md:h-6" />
                     </div>
                     <div>
-                      <p className="font-semibold">Store Pickup</p>
-                      <p className="text-sm text-muted-foreground">Free</p>
+                      <p className="text-sm md:text-base font-semibold">Store Pickup</p>
+                      <p className="text-xs text-muted-foreground">Free</p>
                     </div>
                   </Label>
                 </RadioGroup>
@@ -193,9 +280,9 @@ export default function Checkout() {
 
               {/* Store Location Map - Show when pickup selected */}
               {deliveryMethod === "pickup" && (
-                <div className="glass-card rounded-2xl p-6 border-2 border-primary/10">
-                  <h2 className="text-lg font-display text-primary mb-4 text-center flex items-center justify-center gap-2">
-                    <MapPin className="w-5 h-5" />
+                <div className="glass-card rounded-2xl p-4 md:p-6 border-2 border-primary/10">
+                  <h2 className="text-base md:text-lg font-display text-primary mb-4 text-center flex items-center justify-center gap-2">
+                    <MapPin className="w-4 h-4 md:w-5 md:h-5" />
                     Store Location
                   </h2>
                   <a
@@ -207,7 +294,7 @@ export default function Checkout() {
                     <img
                       src={`https://maps.googleapis.com/maps/api/staticmap?center=${STORE_COORDS.lat},${STORE_COORDS.lng}&zoom=15&size=600x300&maptype=roadmap&markers=color:pink%7C${STORE_COORDS.lat},${STORE_COORDS.lng}&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8`}
                       alt="Store Location Map"
-                      className="w-full h-48 object-cover"
+                      className="w-full h-36 md:h-48 object-cover"
                       onError={(e) => {
                         e.currentTarget.src = "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&h=300&fit=crop";
                       }}
@@ -216,44 +303,44 @@ export default function Checkout() {
                       <span className="text-white font-medium text-sm">Click to open in Google Maps</span>
                     </div>
                   </a>
-                  <div className="mt-4 p-4 bg-muted/50 rounded-xl text-center">
-                    <p className="text-sm font-medium text-foreground">{STORE_ADDRESS}</p>
+                  <div className="mt-3 md:mt-4 p-3 md:p-4 bg-muted/50 rounded-xl text-center">
+                    <p className="text-xs md:text-sm font-medium text-foreground">{STORE_ADDRESS}</p>
                     <p className="text-xs text-muted-foreground mt-1">Open: 10 AM - 8 PM (Sat-Thu)</p>
                   </div>
                 </div>
               )}
 
               {/* Contact Information */}
-              <div className="glass-card rounded-2xl p-6 border-2 border-primary/10">
-                <h2 className="text-lg font-display text-primary mb-5 text-center">Your Information</h2>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="fullName" className="text-sm font-medium">Full Name *</Label>
+              <div className="glass-card rounded-2xl p-4 md:p-6 border-2 border-primary/10">
+                <h2 className="text-base md:text-lg font-display text-primary mb-4 text-center">Your Information</h2>
+                <div className="space-y-3 md:space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="fullName" className="text-xs md:text-sm font-medium">Full Name *</Label>
                       <Input
                         id="fullName"
                         name="fullName"
                         value={formData.fullName}
                         onChange={handleInputChange}
                         placeholder="Your name"
-                        className="rounded-xl border-2 border-border/50 focus:border-primary h-12"
+                        className="rounded-xl border-2 border-border/50 focus:border-primary h-10 md:h-12 text-sm"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone" className="text-sm font-medium">Phone *</Label>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="phone" className="text-xs md:text-sm font-medium">Phone *</Label>
                       <Input
                         id="phone"
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="01XXXXXXXXX"
-                        className="rounded-xl border-2 border-border/50 focus:border-primary h-12"
+                        className="rounded-xl border-2 border-border/50 focus:border-primary h-10 md:h-12 text-sm"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm font-medium">Email (Optional)</Label>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="email" className="text-xs md:text-sm font-medium">Email (Optional)</Label>
                     <Input
                       id="email"
                       name="email"
@@ -261,45 +348,45 @@ export default function Checkout() {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="your@email.com"
-                      className="rounded-xl border-2 border-border/50 focus:border-primary h-12"
+                      className="rounded-xl border-2 border-border/50 focus:border-primary h-10 md:h-12 text-sm"
                     />
                   </div>
 
                   {deliveryMethod === "delivery" && (
                     <>
                       <Separator className="my-2" />
-                      <div className="space-y-2">
-                        <Label htmlFor="address" className="text-sm font-medium">Delivery Address *</Label>
+                      <div className="space-y-1.5">
+                        <Label htmlFor="address" className="text-xs md:text-sm font-medium">Delivery Address *</Label>
                         <Input
                           id="address"
                           name="address"
                           value={formData.address}
                           onChange={handleInputChange}
                           placeholder="House, Road, Area"
-                          className="rounded-xl border-2 border-border/50 focus:border-primary h-12"
+                          className="rounded-xl border-2 border-border/50 focus:border-primary h-10 md:h-12 text-sm"
                         />
                       </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="city" className="text-sm font-medium">City *</Label>
+                      <div className="grid grid-cols-2 gap-3 md:gap-4">
+                        <div className="space-y-1.5">
+                          <Label htmlFor="city" className="text-xs md:text-sm font-medium">City *</Label>
                           <Input
                             id="city"
                             name="city"
                             value={formData.city}
                             onChange={handleInputChange}
                             placeholder="Dhaka"
-                            className="rounded-xl border-2 border-border/50 focus:border-primary h-12"
+                            className="rounded-xl border-2 border-border/50 focus:border-primary h-10 md:h-12 text-sm"
                           />
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="postalCode" className="text-sm font-medium">Postal Code</Label>
+                        <div className="space-y-1.5">
+                          <Label htmlFor="postalCode" className="text-xs md:text-sm font-medium">Postal Code</Label>
                           <Input
                             id="postalCode"
                             name="postalCode"
                             value={formData.postalCode}
                             onChange={handleInputChange}
                             placeholder="1200"
-                            className="rounded-xl border-2 border-border/50 focus:border-primary h-12"
+                            className="rounded-xl border-2 border-border/50 focus:border-primary h-10 md:h-12 text-sm"
                           />
                         </div>
                       </div>
@@ -309,84 +396,43 @@ export default function Checkout() {
               </div>
             </div>
 
-            {/* Right Column */}
-            <div className="space-y-6">
-              {/* Order Summary */}
-              <div className="glass-card rounded-2xl p-6 border-2 border-primary/10">
-                <h2 className="text-lg font-display text-primary mb-5 text-center">Order Summary</h2>
-                
-                <div className="space-y-3 max-h-[200px] overflow-y-auto pr-2 mb-4">
-                  {cart.map((item) => (
-                    <div key={item.id} className="flex gap-4 p-3 bg-muted/30 rounded-xl">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-16 h-16 object-cover rounded-lg"
-                      />
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium truncate">{item.name}</p>
-                        <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
-                        <p className="font-semibold text-primary">{item.price}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <Separator className="my-4" />
-
-                <div className="space-y-3">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Subtotal</span>
-                    <span className="font-medium">৳{subtotal.toFixed(0)}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Shipping</span>
-                    <span className="font-medium">{shipping === 0 ? "Free" : `৳${shipping}`}</span>
-                  </div>
-                  <Separator className="my-2" />
-                  <div className="flex justify-between items-center">
-                    <span className="font-semibold text-lg">Total</span>
-                    <span className="text-2xl font-display text-primary">৳{total.toFixed(0)}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Payment Section */}
-              <div className="glass-card rounded-2xl p-6 border-2 border-pink-500/20 bg-gradient-to-br from-pink-500/5 to-primary/5">
+            {/* Right Column - Payment */}
+            <div className="lg:sticky lg:top-4 lg:self-start">
+              <div className="glass-card rounded-2xl p-4 md:p-6 border-2 border-pink-500/20 bg-gradient-to-br from-pink-500/5 to-primary/5">
                 <div className="flex items-center justify-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center">
-                    <Smartphone className="w-5 h-5 text-white" />
+                  <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-pink-500 flex items-center justify-center">
+                    <Smartphone className="w-4 h-4 md:w-5 md:h-5 text-white" />
                   </div>
-                  <h2 className="text-lg font-display text-pink-600">Pay with Bkash</h2>
+                  <h2 className="text-base md:text-lg font-display text-pink-600">Pay with Bkash</h2>
                 </div>
 
                 {requiresAdvance ? (
                   <div className="text-center mb-5">
-                    <p className="text-sm text-muted-foreground mb-2">Advance Payment Required</p>
-                    <div className="text-4xl font-display text-pink-600 mb-1">৳{advanceAmount}</div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs md:text-sm text-muted-foreground mb-2">Advance Payment Required</p>
+                    <div className="text-3xl md:text-4xl font-display text-pink-600 mb-1">৳{advanceAmount}</div>
+                    <p className="text-xs md:text-sm text-muted-foreground">
                       Remaining ৳{total - advanceAmount} {deliveryMethod === "delivery" ? "on delivery" : "at pickup"}
                     </p>
                   </div>
                 ) : (
                   <div className="text-center mb-5">
-                    <p className="text-sm text-muted-foreground mb-2">Full Payment</p>
-                    <div className="text-4xl font-display text-pink-600">৳{total.toFixed(0)}</div>
+                    <p className="text-xs md:text-sm text-muted-foreground mb-2">Full Payment</p>
+                    <div className="text-3xl md:text-4xl font-display text-pink-600">৳{total.toFixed(0)}</div>
                   </div>
                 )}
 
                 {requiresAdvance && (
-                  <div className="p-4 bg-amber-500/10 border-2 border-amber-500/30 rounded-xl mb-5">
-                    <div className="flex items-start gap-3">
-                      <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div className="p-3 md:p-4 bg-amber-500/10 border-2 border-amber-500/30 rounded-xl mb-5">
+                    <div className="flex items-start gap-2 md:gap-3">
+                      <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                       <div className="flex-1">
-                        <p className="text-sm text-amber-700 font-medium">Important Notice</p>
+                        <p className="text-xs md:text-sm text-amber-700 font-medium">Important Notice</p>
                         <p className="text-xs text-amber-600 mt-1">
                           The advance payment of ৳{advanceAmount} is <span className="font-semibold">non-refundable</span> if you are unable to receive the order.
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-3 mt-4 pt-3 border-t border-amber-500/20">
+                    <div className="flex items-start gap-2 md:gap-3 mt-3 md:mt-4 pt-3 border-t border-amber-500/20">
                       <Checkbox 
                         id="terms" 
                         checked={agreedToTerms}
@@ -403,7 +449,7 @@ export default function Checkout() {
                 <Button
                   onClick={handleSubmit}
                   disabled={requiresAdvance && !agreedToTerms}
-                  className="w-full rounded-xl bg-gradient-to-r from-pink-500 to-pink-600 text-white text-base font-semibold py-6 hover:opacity-90 transition-opacity disabled:opacity-50"
+                  className="w-full rounded-xl bg-gradient-to-r from-pink-500 to-pink-600 text-white text-sm md:text-base font-semibold py-5 md:py-6 hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
                   {requiresAdvance ? `Pay ৳${advanceAmount} with Bkash` : `Pay ৳${total.toFixed(0)} with Bkash`}
                 </Button>
