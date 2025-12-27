@@ -2,70 +2,71 @@ import { Header } from "@/components/Header";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { BackToTop } from "@/components/BackToTop";
-import { ProductCard } from "@/components/ProductCard";
 import { Card, CardContent } from "@/components/ui/card";
-import { Sparkles, Instagram, Facebook, Youtube } from "lucide-react";
+import { Sparkles, Heart, ExternalLink, Instagram, Facebook, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
-const featuredProducts = [
+const weeklyFavorites = [
   {
-    id: "featured-1",
-    name: "Watercolor Dream Set",
-    image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=500&q=80",
-    price: "৳ 1,299",
-    category: "Watercolors",
-    badge: "hot" as const
-  },
-  {
-    id: "featured-2",
-    name: "Premium Sketchbook A4",
-    image: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=500&q=80",
-    price: "৳ 599",
-    category: "Paper",
-    badge: "new" as const
-  },
-  {
-    id: "featured-3",
-    name: "Calligraphy Pen Set",
-    image: "https://images.unsplash.com/photo-1590682680873-c7a1db205b3f?w=500&q=80",
-    price: "৳ 799",
-    category: "Pens",
-    badge: "hot" as const
-  },
-  {
-    id: "featured-4",
-    name: "Acrylic Mediums Collection",
-    image: "https://images.unsplash.com/photo-1611244806813-e82c3e05f032?w=500&q=80",
-    price: "৳ 1,099",
-    category: "Mediums",
-    badge: "new" as const
-  }
-];
-
-const socialPosts = [
-  {
+    id: 1,
+    image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&q=80",
+    title: "Dreamy sunset watercolor vibes 🌸✨",
     platform: "Instagram",
-    icon: Instagram,
-    post: "Check out this amazing watercolor technique!",
-    image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&q=80",
-    likes: 234,
-    url: "#"
+    platformIcon: Instagram,
+    originalUrl: "https://instagram.com",
+    productsUsed: ["Watercolor Dream Set", "Premium Sketchbook A4", "Round Brush Set"],
+    likes: 1234
   },
   {
+    id: 2,
+    image: "https://images.unsplash.com/photo-1604871000636-074fa5117945?w=600&q=80",
+    title: "The prettiest brush collection ever! 💕",
     platform: "Facebook",
-    icon: Facebook,
-    post: "New arrivals: Premium brush collection",
-    image: "https://images.unsplash.com/photo-1604871000636-074fa5117945?w=400&q=80",
-    likes: 189,
-    url: "#"
+    platformIcon: Facebook,
+    originalUrl: "https://facebook.com",
+    productsUsed: ["Taklon Brush Set", "Acrylic Mediums", "Canvas Board"],
+    likes: 892
   },
   {
+    id: 3,
+    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600&q=80",
+    title: "Creating magic with acrylics 🎨💫",
     platform: "YouTube",
-    icon: Youtube,
-    post: "Tutorial: Creating depth with acrylic paints",
-    image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&q=80",
-    views: 1523,
-    url: "#"
+    platformIcon: Youtube,
+    originalUrl: "https://youtube.com",
+    productsUsed: ["Acrylic Paint Set", "Palette Knives", "Stretched Canvas"],
+    likes: 2156
+  },
+  {
+    id: 4,
+    image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=600&q=80",
+    title: "Soft pastel morning sketches 🌷",
+    platform: "Instagram",
+    platformIcon: Instagram,
+    originalUrl: "https://instagram.com",
+    productsUsed: ["Soft Pastel Set", "Toned Paper Pad", "Blending Stumps"],
+    likes: 1567
+  },
+  {
+    id: 5,
+    image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&q=80",
+    title: "Abstract florals in bloom 🌺💖",
+    platform: "Instagram",
+    platformIcon: Instagram,
+    originalUrl: "https://instagram.com",
+    productsUsed: ["Gouache Set", "Hot Press Paper", "Detail Brush Set"],
+    likes: 2089
+  },
+  {
+    id: 6,
+    image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80",
+    title: "Calligraphy practice session ✍️💕",
+    platform: "Facebook",
+    platformIcon: Facebook,
+    originalUrl: "https://facebook.com",
+    productsUsed: ["Calligraphy Pen Set", "Ink Bottles", "Calligraphy Paper"],
+    likes: 756
   }
 ];
 
@@ -78,95 +79,135 @@ export default function WeeklyFeatures() {
       <div className="container mx-auto px-4 py-8 md:py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Sparkles className="h-10 w-10 text-primary animate-pulse" />
-            <h1 className="text-4xl md:text-5xl font-display text-primary">Weekly Features</h1>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+            <Sparkles className="h-4 w-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Updated Weekly</span>
           </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display text-primary mb-4">
+            Weekly Favorites
+          </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover our hand-picked favorites from this week, featuring the best arts and crafts supplies
+            Our curated picks from the community! See what amazing creations our pookies made this week 💖
           </p>
         </div>
 
-        {/* Featured Products */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-display text-foreground mb-8 flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-primary" />
-            This Week's Top Picks
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} {...product} />
-            ))}
-          </div>
-        </section>
+        {/* Favorites Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16">
+          {weeklyFavorites.map((item) => (
+            <Card 
+              key={item.id}
+              className="group overflow-hidden border-2 border-primary/20 hover:border-primary/40 rounded-3xl glass-card transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+            >
+              <CardContent className="p-0">
+                {/* Image Section */}
+                <div className="relative aspect-square overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  {/* Platform Badge */}
+                  <div className="absolute top-4 left-4">
+                    <Badge 
+                      variant="secondary" 
+                      className="gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border-0 shadow-lg"
+                    >
+                      <item.platformIcon className="h-3.5 w-3.5 text-primary" />
+                      <span className="text-xs font-medium text-foreground">{item.platform}</span>
+                    </Badge>
+                  </div>
+                  {/* Likes Badge */}
+                  <div className="absolute top-4 right-4">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm shadow-lg">
+                      <Heart className="h-3.5 w-3.5 text-destructive fill-destructive" />
+                      <span className="text-xs font-medium text-foreground">{item.likes.toLocaleString()}</span>
+                    </div>
+                  </div>
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
 
-        {/* Social Media Section */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-display text-foreground mb-8 text-center">
-            From Our Social Media
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {socialPosts.map((post, index) => (
-              <Card 
-                key={index}
-                className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-500 border-2 border-primary/20 hover:border-primary rounded-3xl glass-card"
-              >
-                <CardContent className="p-0">
-                  <div className="relative aspect-square overflow-hidden">
-                    <img
-                      src={post.image}
-                      alt={post.post}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute top-3 left-3 p-2 glass-card rounded-full">
-                      <post.icon className="h-5 w-5 text-primary" />
-                    </div>
-                  </div>
-                  <div className="p-4 space-y-3">
-                    <p className="text-sm text-foreground line-clamp-2 min-h-[40px]">
-                      {post.post}
+                {/* Content Section */}
+                <div className="p-5 space-y-4">
+                  {/* Title */}
+                  <p className="text-base font-medium text-foreground leading-relaxed">
+                    {item.title}
+                  </p>
+
+                  {/* Products Used */}
+                  <div className="space-y-2">
+                    <p className="text-xs font-semibold text-primary uppercase tracking-wide">
+                      Products Used ✨
                     </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-muted-foreground">
-                        {post.platform === "YouTube" ? `${post.views} views` : `${post.likes} likes`}
-                      </span>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="rounded-full"
-                        onClick={() => window.open(post.url, '_blank')}
-                      >
-                        View Post
-                      </Button>
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.productsUsed.map((product, idx) => (
+                        <Badge 
+                          key={idx}
+                          variant="outline" 
+                          className="text-xs px-2 py-0.5 rounded-full border-secondary/50 bg-secondary/20 text-secondary-foreground hover:bg-secondary/30 transition-colors"
+                        >
+                          {product}
+                        </Badge>
+                      ))}
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+
+                  {/* Link to Original */}
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    className="w-full rounded-full gap-2 border-primary/30 hover:bg-primary/10 hover:border-primary transition-all group/btn"
+                    onClick={() => window.open(item.originalUrl, '_blank')}
+                  >
+                    <span className="text-sm">View Original Post</span>
+                    <ExternalLink className="h-3.5 w-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
         {/* CTA Section */}
-        <Card className="border-2 border-primary/20 glass-card text-center p-8 md:p-12">
-          <h3 className="text-2xl md:text-3xl font-display text-primary mb-4">
-            Follow Us for More Inspiration
-          </h3>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Stay updated with our latest products, tutorials, and creative inspiration
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button className="rounded-full gap-2 bg-gradient-to-r from-primary to-accent">
-              <Instagram className="h-4 w-4" />
-              Instagram
-            </Button>
-            <Button className="rounded-full gap-2 bg-gradient-to-r from-primary to-accent">
-              <Facebook className="h-4 w-4" />
-              Facebook
-            </Button>
-            <Button className="rounded-full gap-2 bg-gradient-to-r from-primary to-accent">
-              <Youtube className="h-4 w-4" />
-              YouTube
-            </Button>
+        <Card className="border-2 border-primary/20 glass-card overflow-hidden">
+          <div className="relative p-8 md:p-12 text-center">
+            {/* Decorative Elements */}
+            <div className="absolute top-4 left-4 text-4xl opacity-20">🌸</div>
+            <div className="absolute bottom-4 right-4 text-4xl opacity-20">✨</div>
+            <div className="absolute top-1/2 left-8 text-2xl opacity-10">💕</div>
+            <div className="absolute top-1/3 right-8 text-2xl opacity-10">🎨</div>
+
+            <div className="relative z-10">
+              <h3 className="text-2xl md:text-3xl font-display text-primary mb-4">
+                Want to be featured? 💖
+              </h3>
+              <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
+                Share your creations with us! Tag us on social media and you might be our next weekly favorite pookie 🌟
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Button 
+                  className="rounded-full gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity shadow-lg"
+                  onClick={() => window.open('https://instagram.com', '_blank')}
+                >
+                  <Instagram className="h-4 w-4" />
+                  Follow on Instagram
+                </Button>
+                <Button 
+                  className="rounded-full gap-2 bg-gradient-to-r from-secondary to-accent hover:opacity-90 transition-opacity shadow-lg"
+                  onClick={() => window.open('https://facebook.com', '_blank')}
+                >
+                  <Facebook className="h-4 w-4" />
+                  Follow on Facebook
+                </Button>
+                <Button 
+                  className="rounded-full gap-2 bg-gradient-to-r from-accent to-primary hover:opacity-90 transition-opacity shadow-lg"
+                  onClick={() => window.open('https://youtube.com', '_blank')}
+                >
+                  <Youtube className="h-4 w-4" />
+                  Subscribe on YouTube
+                </Button>
+              </div>
+            </div>
           </div>
         </Card>
       </div>
