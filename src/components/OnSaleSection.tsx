@@ -16,54 +16,64 @@ interface OnSaleSectionProps {
 
 export const OnSaleSection = ({ products }: OnSaleSectionProps) => {
   return (
-    <section className="py-8 md:py-12 relative">
-      {/* Subtle decorative border */}
+    <section className="py-10 md:py-16 relative">
       <div className="container mx-auto px-3 md:px-4">
-        <div className="relative glass-card rounded-3xl p-6 md:p-8 border-2 border-primary/20">
-          {/* Corner ribbon */}
-          <div className="absolute -top-3 -left-3 md:-top-4 md:-left-4 z-20">
-            <div className="bg-primary text-primary-foreground px-4 py-2 md:px-6 md:py-2.5 rounded-2xl shadow-lg flex items-center gap-2 font-semibold text-sm md:text-base">
-              <Tag className="h-4 w-4 md:h-5 md:w-5" />
-              <span>Sale</span>
-            </div>
-          </div>
+        {/* Outer glow container */}
+        <div className="relative">
+          {/* Background glow effect */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-pink-300 via-primary to-purple-300 rounded-[2rem] blur-xl opacity-30 animate-pulse" />
           
-          {/* Header */}
-          <div className="flex flex-col items-center justify-center mb-6 md:mb-8 pt-4">
-            <h2 className="text-2xl md:text-4xl font-display text-foreground mb-2">
-              Special Offers
-            </h2>
-            <div className="flex items-center gap-2 text-sm md:text-base text-muted-foreground">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <span>Limited time savings on your favorites</span>
-              <Sparkles className="h-4 w-4 text-primary" />
-            </div>
-          </div>
-          
-          {/* Products grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
-            {products.map((product, index) => (
-              <div key={product.id || index} className="relative group">
-                {/* Simple sale indicator */}
-                <div className="absolute top-2 right-2 z-20">
-                  <div className="bg-primary/90 text-primary-foreground px-2.5 py-1 rounded-full text-xs font-medium shadow-sm">
-                    Sale
-                  </div>
+          {/* Main container */}
+          <div className="relative bg-gradient-to-br from-white/80 via-white/70 to-pink-50/80 backdrop-blur-xl rounded-[2rem] p-6 md:p-10 border border-white/60 shadow-2xl">
+            {/* Decorative corner elements */}
+            <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-primary/40 rounded-tl-lg" />
+            <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-primary/40 rounded-tr-lg" />
+            <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-primary/40 rounded-bl-lg" />
+            <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-primary/40 rounded-br-lg" />
+            
+            {/* Header with icon */}
+            <div className="flex flex-col items-center justify-center mb-8 md:mb-10">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/50" />
+                <div className="bg-gradient-to-br from-primary to-pink-400 p-2.5 rounded-xl shadow-lg">
+                  <Tag className="h-5 w-5 text-white" />
                 </div>
+                <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/50" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-display text-foreground mb-2 tracking-tight">
+                Special Offers
+              </h2>
+              <div className="flex items-center gap-2 text-sm md:text-base text-muted-foreground">
+                <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+                <span>Limited time savings on your favorites</span>
+                <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+              </div>
+            </div>
+            
+            {/* Products grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
+              {products.map((product, index) => (
                 <ProductCard
+                  key={product.id || index}
                   id={product.id}
                   name={product.name}
                   image={product.image}
                   price={product.price}
                   category={product.category}
                 />
+              ))}
+            </div>
+            
+            {/* Bottom decorative element */}
+            <div className="mt-8 flex justify-center">
+              <div className="flex items-center gap-2">
+                <div className="h-1 w-8 bg-gradient-to-r from-transparent to-primary/40 rounded-full" />
+                <div className="h-1.5 w-1.5 bg-primary/50 rounded-full" />
+                <div className="h-1 w-16 bg-gradient-to-r from-primary/40 via-primary/60 to-primary/40 rounded-full" />
+                <div className="h-1.5 w-1.5 bg-primary/50 rounded-full" />
+                <div className="h-1 w-8 bg-gradient-to-l from-transparent to-primary/40 rounded-full" />
               </div>
-            ))}
-          </div>
-          
-          {/* Subtle bottom accent */}
-          <div className="mt-6 flex justify-center">
-            <div className="h-1 w-24 bg-gradient-to-r from-transparent via-primary/30 to-transparent rounded-full" />
+            </div>
           </div>
         </div>
       </div>
