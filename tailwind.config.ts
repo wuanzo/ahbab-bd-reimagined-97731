@@ -125,6 +125,14 @@ export default {
             transform: "rotate(360deg)",
           },
         },
+        "shine": {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "10%, 100%": {
+            transform: "translateX(100%)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -133,6 +141,7 @@ export default {
         "float-slow": "float-slow 4s ease-in-out infinite",
         "bubble": "bubble 3s ease-in-out infinite",
         "spin-slow": "spin-slow 3s linear infinite",
+        "shine": "shine 8s ease-in-out infinite",
       },
     },
   },
