@@ -8,10 +8,10 @@ export const Logo = () => {
         <Package className="h-7 w-7 text-white" />
       </div>
       <div>
-        <h1 className="text-2xl md:text-3xl font-display text-primary">
+        <h1 className="text-2xl md:text-3xl font-display bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent drop-shadow-sm tracking-tight">
           Stationery Parlour
         </h1>
-        <p className="text-xs text-muted-foreground font-medium">Your Creative Space</p>
+        <p className="text-xs text-muted-foreground/80 font-medium tracking-wide uppercase">Your Creative Space</p>
       </div>
     </Link>
   );
