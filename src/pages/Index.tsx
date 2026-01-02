@@ -3,10 +3,19 @@ import { Navigation } from "@/components/Navigation";
 import { CategoryBar } from "@/components/CategoryBar";
 import { HeroSection } from "@/components/HeroSection";
 import { ProductSection } from "@/components/ProductSection";
+import { OnSaleSection } from "@/components/OnSaleSection";
 import { ProductCardSkeleton } from "@/components/ProductCardSkeleton";
 import { Footer } from "@/components/Footer";
 import { BackToTop } from "@/components/BackToTop";
 import { useShop } from "@/contexts/ShopContext";
+
+const saleProducts = [
+  { id: "sale-1", name: "Premium Brush Set - 20 Pieces", image: "https://images.unsplash.com/photo-1596548438137-d51ea5c83ca5?w=400&h=400&fit=crop", price: "৳ 449", originalPrice: "৳ 599", category: "brushes" },
+  { id: "sale-2", name: "Watercolor Paint Set - 36 Colors", image: "https://images.unsplash.com/photo-1572372578149-c6b0c10f6697?w=400&h=400&fit=crop", price: "৳ 549", originalPrice: "৳ 799", category: "paints" },
+  { id: "sale-3", name: "Canvas Bundle - 3 Pack", image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400&h=400&fit=crop", price: "৳ 399", originalPrice: "৳ 549", category: "canvases" },
+  { id: "sale-4", name: "Artist Palette - Wooden", image: "https://images.unsplash.com/photo-1494891848038-7bd202a2afeb?w=400&h=400&fit=crop", price: "৳ 179", originalPrice: "৳ 249", category: "palettes" },
+  { id: "sale-5", name: "Acrylic Paint Starter Kit", image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop", price: "৳ 699", originalPrice: "৳ 999", category: "paints" },
+];
 
 const paintProducts = [
   { id: "paint-1", name: "Acrylic Paint Set - 24 Colors", image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&h=400&fit=crop", price: "৳ 599", category: "paints", badge: "hot" as const },
@@ -101,6 +110,11 @@ const Index = () => {
                   </p>
                 </div>
               )}
+              {/* On Sale Section - Eye-catching placement */}
+              {!searchQuery && (
+                <OnSaleSection products={saleProducts} />
+              )}
+              
               {filteredPaintProducts.length > 0 && (
                 <ProductSection title="Paints" products={filteredPaintProducts} />
               )}
