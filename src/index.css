@@ -8,54 +8,54 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Soft Lavender Dream Theme */
-    --background: 270 100% 98%;
-    --foreground: 270 40% 30%;
+    /* Soft Lavender Dream Theme - Light & Airy */
+    --background: 270 60% 99%;
+    --foreground: 270 30% 35%;
 
-    --card: 0 0% 100% / 0.5;
-    --card-foreground: 270 40% 30%;
+    --card: 0 0% 100% / 0.6;
+    --card-foreground: 270 30% 35%;
 
     --popover: 0 0% 100% / 0.95;
-    --popover-foreground: 270 40% 30%;
+    --popover-foreground: 270 30% 35%;
 
-    --primary: 270 80% 70%;
+    --primary: 270 55% 75%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 270 60% 85%;
-    --secondary-foreground: 270 50% 25%;
+    --secondary: 270 45% 90%;
+    --secondary-foreground: 270 40% 30%;
 
-    --muted: 270 40% 94%;
-    --muted-foreground: 270 25% 45%;
+    --muted: 270 30% 96%;
+    --muted-foreground: 270 20% 50%;
 
-    --accent: 280 70% 80%;
-    --accent-foreground: 280 60% 25%;
+    --accent: 280 50% 85%;
+    --accent-foreground: 280 45% 30%;
 
-    --success: 160 60% 80%;
-    --success-foreground: 160 50% 25%;
+    --success: 160 50% 85%;
+    --success-foreground: 160 45% 28%;
 
-    --destructive: 0 65% 70%;
+    --destructive: 0 55% 75%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 270 50% 88%;
-    --input: 270 50% 94%;
-    --ring: 270 80% 70%;
+    --border: 270 35% 92%;
+    --input: 270 35% 96%;
+    --ring: 270 55% 75%;
 
     --radius: 1.5rem;
 
-    --nav-badge: 270 80% 70%;
+    --nav-badge: 270 55% 75%;
     
-    --sidebar-background: 270 100% 98%;
-    --sidebar-foreground: 270 40% 30%;
-    --sidebar-primary: 270 80% 70%;
+    --sidebar-background: 270 60% 99%;
+    --sidebar-foreground: 270 30% 35%;
+    --sidebar-primary: 270 55% 75%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 270 40% 94%;
-    --sidebar-accent-foreground: 270 40% 30%;
-    --sidebar-border: 270 50% 88%;
-    --sidebar-ring: 270 80% 70%;
+    --sidebar-accent: 270 30% 96%;
+    --sidebar-accent-foreground: 270 30% 35%;
+    --sidebar-border: 270 35% 92%;
+    --sidebar-ring: 270 55% 75%;
     
     /* Lavender Gradients */
-    --gradient-lavender: linear-gradient(180deg, hsl(270, 100%, 98%) 0%, hsl(270, 80%, 85%) 50%, hsl(270, 70%, 75%) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(200, 170, 255, 0.2) 0%, rgba(180, 150, 230, 0.2) 50%, rgba(160, 130, 220, 0.2) 100%);
+    --gradient-lavender: linear-gradient(180deg, hsl(270, 60%, 99%) 0%, hsl(270, 50%, 92%) 50%, hsl(270, 45%, 88%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(220, 200, 255, 0.15) 0%, rgba(200, 180, 240, 0.15) 50%, rgba(190, 170, 235, 0.15) 100%);
   }
 
   .dark {
@@ -68,7 +68,7 @@ All colors MUST be HSL.
     --popover: 270 30% 10%;
     --popover-foreground: 270 20% 90%;
 
-    --primary: 270 70% 65%;
+    --primary: 270 60% 70%;
     --primary-foreground: 270 30% 10%;
 
     --secondary: 270 25% 20%;
@@ -77,7 +77,7 @@ All colors MUST be HSL.
     --muted: 270 25% 18%;
     --muted-foreground: 270 15% 60%;
 
-    --accent: 280 50% 50%;
+    --accent: 280 45% 55%;
     --accent-foreground: 270 20% 90%;
 
     --destructive: 0 55% 45%;
@@ -85,16 +85,16 @@ All colors MUST be HSL.
 
     --border: 270 25% 20%;
     --input: 270 25% 18%;
-    --ring: 270 70% 65%;
+    --ring: 270 60% 70%;
     
     --sidebar-background: 270 30% 10%;
     --sidebar-foreground: 270 20% 90%;
-    --sidebar-primary: 270 70% 60%;
+    --sidebar-primary: 270 60% 65%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 270 25% 15%;
     --sidebar-accent-foreground: 270 20% 90%;
     --sidebar-border: 270 25% 18%;
-    --sidebar-ring: 270 70% 60%;
+    --sidebar-ring: 270 60% 65%;
   }
 }
 
@@ -106,12 +106,12 @@ All colors MUST be HSL.
   body {
     @apply text-foreground;
     background: linear-gradient(180deg, 
-      hsl(270, 100%, 99%) 0%, 
-      hsl(270, 80%, 96%) 20%,
-      hsl(270, 70%, 90%) 40%, 
-      hsl(270, 65%, 82%) 60%,
-      hsl(270, 60%, 76%) 80%,
-      hsl(270, 55%, 70%) 100%
+      hsl(0, 0%, 100%) 0%, 
+      hsl(270, 50%, 98%) 15%,
+      hsl(270, 45%, 95%) 35%, 
+      hsl(270, 40%, 92%) 55%,
+      hsl(270, 38%, 88%) 75%,
+      hsl(270, 35%, 85%) 100%
     );
     background-attachment: fixed;
     min-height: 100vh;
@@ -126,9 +126,9 @@ All colors MUST be HSL.
     right: 0;
     bottom: 0;
     background-image: 
-      radial-gradient(circle at 30% 20%, rgba(200, 170, 255, 0.12) 0%, transparent 40%),
-      radial-gradient(circle at 70% 60%, rgba(180, 140, 240, 0.1) 0%, transparent 45%),
-      radial-gradient(circle at 20% 80%, rgba(160, 120, 230, 0.08) 0%, transparent 35%);
+      radial-gradient(circle at 30% 20%, rgba(220, 200, 255, 0.1) 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, rgba(210, 185, 250, 0.08) 0%, transparent 45%),
+      radial-gradient(circle at 20% 80%, rgba(200, 175, 245, 0.06) 0%, transparent 35%);
     pointer-events: none;
     z-index: -1;
   }
