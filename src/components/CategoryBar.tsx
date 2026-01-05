@@ -1,39 +1,37 @@
 import { Link } from "react-router-dom";
-import { Palette, Brush, Frame, Layers, Scissors, Grid, Sparkles, FileText, SquareStack, Triangle } from "lucide-react";
 
 const categories = [
-  { slug: "paints", name: "PAINTS", icon: Palette },
-  { slug: "brushes", name: "BRUSHES", icon: Brush },
-  { slug: "canvases", name: "CANVASES", icon: Frame },
-  { slug: "palettes", name: "COLOUR PALETTES", icon: Layers },
-  { slug: "easels", name: "EASELS", icon: Triangle },
-  { slug: "medium", name: "MEDIUM & VARNISH", icon: Sparkles },
-  { slug: "decoupage", name: "DECOUPAGE PAPER", icon: Scissors },
-  { slug: "stencil", name: "STENCIL", icon: Grid },
-  { slug: "lippan", name: "LIPPAN ART", icon: SquareStack },
-  { slug: "paper", name: "ART PADS & PAPER", icon: FileText },
+  { slug: "paints", name: "Paints" },
+  { slug: "brushes", name: "Brushes" },
+  { slug: "canvases", name: "Canvases" },
+  { slug: "palettes", name: "Colour Palettes" },
+  { slug: "easels", name: "Easels" },
+  { slug: "medium", name: "Medium & Varnish" },
+  { slug: "decoupage", name: "Decoupage Paper" },
+  { slug: "stencil", name: "Stencil" },
+  { slug: "lippan", name: "Lippan Art" },
+  { slug: "paper", name: "Art Pads & Paper" },
 ];
 
 export const CategoryBar = () => {
   return (
-    <section className="py-6 bg-transparent">
+    <section className="py-6 md:py-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {categories.map((category) => {
-            const Icon = category.icon;
-            return (
+        <div className="glass-card rounded-2xl p-4 md:p-6 border border-border/50">
+          <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-4">
+            Categories
+          </h2>
+          <div className="flex flex-wrap gap-2 md:gap-3">
+            {categories.map((category) => (
               <Link
-                key={category.name}
+                key={category.slug}
                 to={`/category/${category.slug}`}
-                className="flex flex-col items-center justify-center gap-2 px-4 py-6 rounded-2xl glass-card hover:bg-primary hover:text-primary-foreground transition-all group shadow-sm hover:shadow-md hover:scale-105 border-2 border-border hover:border-primary h-full"
+                className="px-4 py-2 md:px-5 md:py-2.5 rounded-full text-xs md:text-sm font-medium bg-background/60 hover:bg-primary hover:text-primary-foreground border border-border/50 hover:border-primary transition-all duration-200 hover:shadow-md"
               >
-                <Icon className="h-7 w-7 group-hover:scale-110 transition-transform" />
-                <span className="text-xs font-bold text-center whitespace-nowrap">
-                  {category.name}
-                </span>
+                {category.name}
               </Link>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>

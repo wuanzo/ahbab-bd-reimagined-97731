@@ -76,23 +76,23 @@ export default function WeeklyFeatures() {
       <Header />
       <Navigation />
       
-      <div className="container mx-auto px-4 py-8 md:py-12">
+      <div className="container mx-auto px-3 sm:px-4 py-6 md:py-12">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Updated Weekly</span>
+        <div className="text-center mb-8 md:mb-12">
+          <div className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-primary/10 border border-primary/20 mb-4 md:mb-6">
+            <Sparkles className="h-3.5 w-3.5 md:h-4 md:w-4 text-primary" />
+            <span className="text-xs md:text-sm font-medium text-primary">Updated Weekly</span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display text-primary mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display text-primary mb-3 md:mb-4">
             Weekly Favorites
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Our curated picks from the community! See what amazing creations our pookies made this week 💖
           </p>
         </div>
 
         {/* Favorites Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-12 md:mb-16">
           {weeklyFavorites.map((item) => (
             <Card 
               key={item.id}
@@ -170,37 +170,37 @@ export default function WeeklyFeatures() {
 
         {/* CTA Section */}
         <Card className="border-2 border-primary/20 glass-card overflow-hidden">
-          <div className="relative p-8 md:p-12 text-center">
-            {/* Decorative Elements */}
-            <div className="absolute top-4 left-4 text-4xl opacity-20">🌸</div>
-            <div className="absolute bottom-4 right-4 text-4xl opacity-20">✨</div>
-            <div className="absolute top-1/2 left-8 text-2xl opacity-10">💕</div>
-            <div className="absolute top-1/3 right-8 text-2xl opacity-10">🎨</div>
+          <div className="relative p-6 sm:p-8 md:p-12 text-center">
+            {/* Decorative Elements - Hidden on mobile */}
+            <div className="hidden sm:block absolute top-4 left-4 text-4xl opacity-20">🌸</div>
+            <div className="hidden sm:block absolute bottom-4 right-4 text-4xl opacity-20">✨</div>
+            <div className="hidden md:block absolute top-1/2 left-8 text-2xl opacity-10">💕</div>
+            <div className="hidden md:block absolute top-1/3 right-8 text-2xl opacity-10">🎨</div>
 
             <div className="relative z-10">
-              <h3 className="text-2xl md:text-3xl font-display text-primary mb-4">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-display text-primary mb-3 md:mb-4">
                 Want to be featured? 💖
               </h3>
-              <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
+              <p className="text-sm md:text-base text-muted-foreground mb-6 md:mb-8 max-w-xl mx-auto">
                 Share your creations with us! Tag us on social media and you might be our next weekly favorite pookie 🌟
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 md:gap-4">
                 <Button 
-                  className="rounded-full gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity shadow-lg"
+                  className="w-full sm:w-auto rounded-full gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity shadow-lg text-sm md:text-base"
                   onClick={() => window.open('https://instagram.com', '_blank')}
                 >
                   <Instagram className="h-4 w-4" />
                   Follow on Instagram
                 </Button>
                 <Button 
-                  className="rounded-full gap-2 bg-gradient-to-r from-secondary to-accent hover:opacity-90 transition-opacity shadow-lg"
+                  className="w-full sm:w-auto rounded-full gap-2 bg-gradient-to-r from-secondary to-accent hover:opacity-90 transition-opacity shadow-lg text-sm md:text-base"
                   onClick={() => window.open('https://facebook.com', '_blank')}
                 >
                   <Facebook className="h-4 w-4" />
                   Follow on Facebook
                 </Button>
                 <Button 
-                  className="rounded-full gap-2 bg-gradient-to-r from-accent to-primary hover:opacity-90 transition-opacity shadow-lg"
+                  className="w-full sm:w-auto rounded-full gap-2 bg-gradient-to-r from-accent to-primary hover:opacity-90 transition-opacity shadow-lg text-sm md:text-base"
                   onClick={() => window.open('https://youtube.com', '_blank')}
                 >
                   <Youtube className="h-4 w-4" />

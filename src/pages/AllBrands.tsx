@@ -105,18 +105,18 @@ const BrandCard = ({ brand }: { brand: typeof brands[0] }) => {
       }`}
     >
       <Link to={`/category/${brand.category.toLowerCase().replace(/ /g, '-')}`}>
-        <CardContent className="p-6">
-          <div className="aspect-square mb-4 overflow-hidden rounded-2xl bg-background/50">
+        <CardContent className="p-4 md:p-6">
+          <div className="aspect-square mb-3 md:mb-4 overflow-hidden rounded-xl md:rounded-2xl bg-background/50">
             <img
               src={brand.logo}
               alt={brand.name}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />
           </div>
-          <h3 className="font-display text-xl text-foreground mb-2 group-hover:text-primary transition-colors">
+          <h3 className="font-display text-base md:text-xl text-foreground mb-1 md:mb-2 group-hover:text-primary transition-colors truncate">
             {brand.name}
           </h3>
-          <p className="text-sm text-muted-foreground mb-1">{brand.category}</p>
+          <p className="text-xs md:text-sm text-muted-foreground mb-0.5 md:mb-1 truncate">{brand.category}</p>
           <p className="text-xs text-primary font-semibold">{brand.products} Products</p>
         </CardContent>
       </Link>
@@ -130,18 +130,18 @@ export default function AllBrands() {
       <Header />
       <Navigation />
       
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Award className="h-10 w-10 text-primary" />
-            <h1 className="text-4xl md:text-5xl font-display text-primary">All Brands</h1>
+      <div className="container mx-auto px-3 sm:px-4 py-6 md:py-12">
+        <div className="text-center mb-8 md:mb-12">
+          <div className="flex items-center justify-center gap-2 md:gap-3 mb-3 md:mb-4">
+            <Award className="h-8 w-8 md:h-10 md:w-10 text-primary" />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-primary">All Brands</h1>
           </div>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Explore our curated collection of premium art supply brands from around the world
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {brands.map((brand) => (
             <BrandCard key={brand.id} brand={brand} />
           ))}
